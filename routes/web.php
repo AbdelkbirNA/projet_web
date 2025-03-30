@@ -17,4 +17,6 @@ Route::get('/professors', [ProfessorController::class, 'index'])->name('professo
 Route::get('/prof', function () {
     return view('prof');
 });
-
+Route::get('/hello', function () {
+    return view('publication.index');
+});
