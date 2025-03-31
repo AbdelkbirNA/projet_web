@@ -12,8 +12,9 @@ Route::get('/', function () {
     return view('Ensiasd.Main'); // Assure-toi que la structure respecte bien `resources/views/Ensiasd/Main.blade.php`
 })->name('home');
 
-Route::get('/professors', [ProfessorController::class, 'index'])->name('professors');
-
+Route::get('/professors', function () {
+    return view('Ensiasd.professors');
+});
 
 Route::get('/prof', function () {
     return view('prof');
