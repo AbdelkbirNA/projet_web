@@ -16,6 +16,6 @@ Route::get('/professors', function () {
     return view('Ensiasd.professors');
 });
 
-Route::get('/prof', function () {
-    return view('prof');
+Route::get('/abdo', function () {
+    return view('Professors.Abdo');
 });
