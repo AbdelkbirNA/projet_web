@@ -1,0 +1,499 @@
+/* Ajustements pour la section Research */
+.research {
+    background-color: var(--color-background-alt);
+    padding: var(--space-16) 0;
+  }
+  
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-8);
+  }
+  
+  .research-item {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--color-border);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .research-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+  }
+  
+  .research-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .research-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .research-content {
+    padding: var(--space-6);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .research-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+  
+  .research-description {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+    flex-grow: 1;
+  }
+  
+  .research-link {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    align-items: center;
+    transition: var(--transition);
+  }
+  
+  .research-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+  
+  /* Ajustements pour la section Publications */
+  .publications {
+    background-color: var(--color-background);
+    padding: var(--space-16) 0;
+  }
+  
+  .publications-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+  }
+  
+  .filter-btn {
+    padding: var(--space-2) var(--space-6);
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .filter-btn:hover {
+    background-color: var(--color-secondary);
+  }
+  
+  .filter-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+  
+  .publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  
+  .publication-item {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-background);
+    transition: var(--transition);
+  }
+  
+  .publication-item:hover {
+    box-shadow: var(--shadow);
+    border-color: var(--color-primary-light);
+  }
+  
+  .publication-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+  
+  .publication-journal {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-2);
+  }
+  
+  .journal-name {
+    font-style: italic;
+  }
+  
+  .publication-authors {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+  }
+  
+  .publication-links {
+    display: flex;
+    gap: var(--space-4);
+  }
+  
+  .publication-link {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .publication-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+  
+  .publications-more {
+    margin-top: var(--space-10);
+    text-align: center;
+  }
+  
+  /* Ajustements pour la section Courses */
+  .courses {
+    background-color: var(--color-background-alt);
+    padding: var(--space-16) 0;
+  }
+  
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-8);
+  }
+  
+  .course-item {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--color-border);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+  }
+  
+  .course-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .course-level {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .course-content {
+    padding: var(--space-6);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-2);
+  }
+  
+  .course-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  .course-code {
+    font-size: var(--font-size-sm);
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-text-light);
+  }
+  
+  .course-semester {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+  }
+  
+  .course-description {
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-6);
+    flex-grow: 1;
+  }
+  
+  .course-links {
+    display: flex;
+    gap: var(--space-2);
+  }
+  
+  /* Ajustements pour la section Contact */
+  .contact {
+    background-color: var(--color-background);
+    padding: var(--space-16) 0;
+  }
+  
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+  
+  .contact-subtitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  
+  .form-group {
+    margin-bottom: var(--space-6);
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition: var(--transition);
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  }
+  
+  .info-group {
+    margin-bottom: var(--space-6);
+  }
+  
+  .info-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+  
+  .info-text {
+    color: var(--color-text-light);
+  }
+  
+  /* Ajustements pour la section About */
+  .about {
+    background-color: var(--color-background);
+    padding: var(--space-16) 0;
+  }
+  
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  
+  .about-image {
+    text-align: center;
+  }
+  
+  .about-image img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+  }
+  
+  .about-text p {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-light);
+  }
+  
+  .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  
+  .about-links a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    transition: var(--transition);
+  }
+  
+  .about-links a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+  
+  /* Responsive Styles */
+  @media (min-width: 768px) {
+    .about-content {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+    
+    .contact-content {
+      grid-template-columns: 3fr 2fr;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .about-image {
+      margin-bottom: var(--space-6);
+    }
+    
+    .about-links {
+      justify-content: center;
+    }
+    
+    .research-grid,
+    .courses-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Dark Mode Adjustments */
+  .dark .research {
+    background-color: var(--color-background-alt-dark-theme);
+  }
+  
+  .dark .research-item {
+    background-color: var(--color-background-dark-theme);
+    border-color: var(--color-border-dark-theme);
+  }
+  
+  .dark .research-title {
+    color: var(--color-text-dark-theme);
+  }
+  
+  .dark .research-description {
+    color: var(--color-text-light-dark-theme);
+  }
+  
+  .dark .publications {
+    background-color: var(--color-background-dark-theme);
+  }
+  
+  .dark .filter-btn {
+    border-color: var(--color-border-dark-theme);
+    color: var(--color-text-light-dark-theme);
+  }
+  
+  .dark .filter-btn:hover {
+    background-color: var(--color-background-alt-dark-theme);
+  }
+  
+  .dark .filter-btn.active {
+    background-color: var(--color-primary-dark-theme);
+    border-color: var(--color-primary-dark-theme);
+  }
+  
+  .dark .publication-item {
+    background-color: var(--color-background-dark-theme);
+    border-color: var(--color-border-dark-theme);
+  }
+  
+  .dark .publication-title {
+    color: var(--color-text-dark-theme);
+  }
+  
+  .dark .courses {
+    background-color: var(--color-background-alt-dark-theme);
+  }
+  
+  .dark .course-item {
+    background-color: var(--color-background-dark-theme);
+    border-color: var(--color-border-dark-theme);
+  }
+  
+  .dark .course-title {
+    color: var(--color-text-dark-theme);
+  }
+  
+  .dark .course-code {
+    background-color: var(--color-background-alt-dark-theme);
+  }
+  
+  .dark .contact {
+    background-color: var(--color-background-dark-theme);
+  }
+  
+  .dark .about {
+    background-color: var(--color-background-dark-theme);
+  }
+  
+  .dark .about-text p {
+    color: var(--color-text-light-dark-theme);
+  }

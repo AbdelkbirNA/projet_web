@@ -1,21 +1,22 @@
 @extends('layouts.professor-layout')
 
-@section('title', 'Prof. John Doe - Portfolio Académique')
-@section('description', 'Portfolio académique du Professeur John Doe, spécialiste en Intelligence Artificielle et Apprentissage Automatique')
+@section('title', 'Prof Abdo')
+@section('description', 'Portfolio académique du Professeur Abdelkbir Nainiaa, spécialiste en Intelligence Artificielle et Apprentissage Automatique')
 
-@section('professor_name', 'Prof. John Doe')
+@section('professor_name', 'Prof. Abdlekbir Nainiaa')
 @section('professor_title', 'Professeur en Informatique')
 @section('professor_speciality', 'Spécialiste en Intelligence Artificielle et Apprentissage Automatique')
-@section('professor_image', asset('img/prof-john-doe.jpg'))
+@section('professor_image', asset('IMG/abdo1.jpg'))
 
 @section('content')
     <!-- About Section -->
+    <link rel="stylesheet" href="{{ asset('css/prof_content.css') }}">
     <section id="about" class="about section">
         <div class="container">
             <h2 class="section-title">À propos</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="{{ asset('img/prof-john-doe.jpg') }}" alt="Professor John Doe" class="about-img">
+                    <img src="{{ asset('IMG/abdo1.jpg') }}" alt="Professor John Doe" class="about-img">
                 </div>
                 <div class="about-text">
                     <p>
@@ -48,7 +49,7 @@
                 <!-- Research Item 1 -->
                 <div class="research-item">
                     <div class="research-image">
-                        <img src="{{ asset('img/research-xai.jpg') }}" alt="Intelligence Artificielle Explicable">
+                        <img src="{{ asset('IMG/cyber.jpg') }}" alt="Intelligence Artificielle Explicable">
                     </div>
                     <div class="research-content">
                         <h3 class="research-title">Intelligence Artificielle Explicable</h3>
@@ -62,7 +63,7 @@
                 <!-- Research Item 2 -->
                 <div class="research-item">
                     <div class="research-image">
-                        <img src="{{ asset('img/research-health.jpg') }}" alt="Apprentissage Profond pour la Santé">
+                        <img src="{{ asset('IMG/data.jpg') }}" alt="Apprentissage Profond pour la Santé">
                     </div>
                     <div class="research-content">
                         <h3 class="research-title">Apprentissage Profond pour la Santé</h3>
@@ -76,7 +77,7 @@
                 <!-- Research Item 3 -->
                 <div class="research-item">
                     <div class="research-image">
-                        <img src="{{ asset('img/research-agents.jpg') }}" alt="Systèmes Multi-Agents">
+                        <img src="{{ asset('IMG/il.jpg') }}" alt="Systèmes Multi-Agents">
                     </div>
                     <div class="research-content">
                         <h3 class="research-title">Systèmes Multi-Agents</h3>
@@ -173,7 +174,7 @@
                 <!-- Course 1 -->
                 <div class="course-item">
                     <div class="course-image">
-                        <img src="{{ asset('img/course-ia.jpg') }}" alt="Intelligence Artificielle">
+                        <img src="{{ asset('IMG/cour1.jpg') }}" alt="Intelligence Artificielle">
                         <div class="course-level">Master 1</div>
                     </div>
                     <div class="course-content">
@@ -195,7 +196,7 @@
                 <!-- Course 2 -->
                 <div class="course-item">
                     <div class="course-image">
-                        <img src="{{ asset('img/course-deep.jpg') }}" alt="Apprentissage Profond">
+                        <img src="{{ asset('IMG/cour2.jpg') }}" alt="Apprentissage Profond">
                         <div class="course-level">Master 2</div>
                     </div>
                     <div class="course-content">
@@ -217,7 +218,7 @@
                 <!-- Course 3 -->
                 <div class="course-item">
                     <div class="course-image">
-                        <img src="{{ asset('img/course-algo.jpg') }}" alt="Algorithmique Avancée">
+                        <img src="{{ asset('IMG/cour3.jpg') }}" alt="Algorithmique Avancée">
                         <div class="course-level">Licence 3</div>
                     </div>
                     <div class="course-content">
