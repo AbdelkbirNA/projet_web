@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'ENSIASD - École Nationale Supérieure d\'Intelligence Artificielle et Science des Données')</title>
     <meta name="description" content="@yield('description', 'École Nationale Supérieure d\'Intelligence Artificielle et Science des Données - Formation d\'excellence en IA et Data Science')">
-    
+
     <!-- Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- CSS principal -->
     <link rel="stylesheet" href="{{ asset('css/ensiasd.css') }}">
 
