@@ -22,7 +22,7 @@ Route::get('/abdo', function () {
 
 
 
-//Publicatio 
+//Publicatio test
 
 Route::get('/publications', ["App\Http\Controllers\pubController","all_pub"])->name("all_pub");
 Route::get('/pub', ["App\Http\Controllers\pubController","index"])->name("pub");
