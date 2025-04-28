@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/prof_content.css') }}">
     <section id="about" class="about section">
         <div class="container">
-            <h2 class="section-title">À propos</h2>
+            <h2 class="section-title">À propos pf</h2>
             <div class="about-content">
                 <div class="about-image">
                     <img src="{{ asset('IMG/abdo1.jpg') }}" alt="Professor John Doe" class="about-img">
