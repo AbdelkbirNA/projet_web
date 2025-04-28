@@ -26,7 +26,7 @@
             <div class="header-content">
                 <div class="logo">
                     <img src="img/logo-ensiasd.jpg" alt="Logo ENSIASD" class="logo-img">
-                    <h1 class="logo-text">ENSIASD</h1>
+                    <h1 class="logo-text">ENSIASD b</h1>
                 </div>
                 
                 <!-- Navigation Desktop -->
