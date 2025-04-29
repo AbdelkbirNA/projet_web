@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Créer la table 'users'
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -20,11 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-
-            // Ajouter les colonnes supplémentaires
-            $table->string('user_type');  // Type d'utilisateur
-            $table->string('cne')->nullable();  // CNE (si étudiant)
-            $table->string('matricule')->nullable();  // Matricule (si professeur)
         });
     }
 
@@ -33,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Si cette migration est annulée, supprimer la table 'users'
         Schema::dropIfExists('users');
     }
 };
