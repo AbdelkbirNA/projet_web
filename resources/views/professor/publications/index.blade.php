@@ -1,4 +1,22 @@
-<!-- Header (Layout Component) -->
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h2>Mes Publications (Professeur)</h2>
+    
+    @foreach($publications as $pub)
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>{{ $pub->titre_pub }}</h5>
+            <p>{{ $pub->description }}</p>
+            <small>Année: {{ $pub->year }}</small>
+        </div>
+    </div>
+    @endforeach
+</div>
+@endsection
+
+@section('header')
 <header class="header">
     <div class="container">
         <div class="header-content">
@@ -15,15 +33,20 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button id="signin-button" class="btn btn-outline-primary">
-                        <i class="fas fa-sign-in-alt"></i> Se connecter
-                    </button>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
+                    @auth
+                        <!-- Bouton Déconnexion pour utilisateur connecté -->
+                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-link nav-link">{{ __('Logout') }}</button>
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </button>
                         </form>
-                    </li>
+                    @else
+                        <!-- Bouton Connexion pour utilisateur non connecté -->
+                        <button id="signin-button" class="btn btn-outline-primary">
+                            <i class="fas fa-sign-in-alt"></i> Se connecter
+                        </button>
+                    @endauth
                    
                     <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
                         <i class="fas fa-sun"></i>
@@ -47,9 +70,22 @@
                 <li><a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a></li>
                 <li><a href="#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="#" id="theme-toggle-mobile" class="mobile-nav-link"><i class="fas fa-sun"></i> Changer de thème</a></li>
-                <li><a href="#" id="signin-mobile" class="mobile-nav-link"><i class="fas fa-sign-in-alt"></i> Se connecter</a></li>
-                <li><a href="#" id="signup-mobile" class="mobile-nav-link highlight"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
+                
+                @auth
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="mobile-nav-link">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li><a href="#" id="signin-mobile" class="mobile-nav-link"><i class="fas fa-sign-in-alt"></i> Se connecter</a></li>
+                    <li><a href="#" id="signup-mobile" class="mobile-nav-link highlight"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
+                @endauth
             </ul>
         </nav>
     </div>
 </header>
+@endsection
