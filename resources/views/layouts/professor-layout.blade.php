@@ -37,7 +37,7 @@
                         <h2 class="hero-subtitle">@yield('professor_title', 'Professeur en Informatique')</h2>
                         <p class="hero-description">@yield('professor_speciality', 'Spécialiste en Intelligence Artificielle et Apprentissage Automatique')</p>
                         <div class="hero-buttons">
-                            <a href="#contact" class="btn btn-primary">Me contacter</a>
+                            <a href="#contact" class="btn btn-outline">Me contacter</a>
                             <a href="#publications" class="btn btn-outline">Voir mes publications</a>
                         </div>
                     </div>
