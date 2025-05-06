@@ -18,12 +18,12 @@
                     <button id="signin-button" class="btn btn-outline-primary">
                         <i class="fas fa-sign-in-alt"></i> Se connecter
                     </button>
-                    <li class="nav-item">
+                   <!-- <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="btn btn-link nav-link">{{ __('Logout') }}</button>
                         </form>
-                    </li>
+                    </li>-->
                    
                     <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
                         <i class="fas fa-sun"></i>

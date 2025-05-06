@@ -64,6 +64,18 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/', function () {
+    return view('Ensiasd.Main'); // Assure-toi que la structure respecte bien `resources/views/Ensiasd/Main.blade.php`
+})->name('home');
+
+Route::get('/professors', function () {
+    return view('Ensiasd.professors');
+});
+
+Route::get('/abdo', function () {
+    return view('Professors.Abdo');
+});
+
 
 // Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
