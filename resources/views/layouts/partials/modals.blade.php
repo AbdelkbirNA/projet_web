@@ -5,222 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Styles globaux */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f9fc;
-        }
-        
-        /* Boutons principaux */
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background-color: #4e73df;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #2e59d9;
-        }
-        
-        .btn-secondary {
-            background-color: #858796;
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #6c757d;
-        }
-        
-        /* Styles pour les modals */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 25px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            animation: modalFadeIn 0.3s;
-        }
-
-        @keyframes modalFadeIn {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-modal:hover {
-            color: #333;
-        }
-
-        /* Styles pour les formulaires */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input, 
-        .form-group select {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus, 
-        .form-group select:focus {
-            border-color: #4e73df;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.25);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .btn-block {
-            width: 100%;
-            padding: 12px;
-        }
-
-        .modal-footer {
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 15px;
-        }
-
-        .modal-footer a {
-            color: #4e73df;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .modal-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .checkbox input {
-            width: auto;
-            margin-right: 10px;
-        }
-
-        .error-message {
-            color: #e74a3b;
-            font-size: 14px;
-            margin-top: 0.3rem;
-            display: block;
-        }
-
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 1em;
-        }
-
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .alert-danger ul {
-            padding-left: 20px;
-            margin: 5px 0;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Responsive */
-        @media (max-width: 576px) {
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            .modal-content {
-                margin: 20% auto;
-                padding: 20px;
-            }
-        }
-    </style>
+    
 </head>
 <body>
 
-<div class="auth-buttons">
+<!-- <div class="auth-buttons">
     <button id="signin-button" data-target="login-modal" class="btn btn-primary">
-        <i class="fas fa-sign-in-alt"></i> Se connecter
+        <i class="fas fa-sign-in-alt"></i> Se connecterss
     </button>
     <button id="signup-button" data-target="register-modal" class="btn btn-secondary">
         <i class="fas fa-user-plus"></i> S'inscrire
     </button>
-</div>
+</div> -->
 
 <!-- Modal de connexion -->
 <div id="login-modal" class="modal">
@@ -263,7 +59,8 @@
         </form>
         
         <div class="modal-footer">
-            <p>Pas encore de compte? <a href="#" id="switch-to-register">S'inscrire</a></p>
+            <p>Pas encore de compte? <a id="signup-button" data-target="register-modal" class="btn btn-secondary">S'inscrire</a>
+    </a></p>
         </div>
     </div>
 </div>
@@ -346,6 +143,7 @@
 </div>
 
 <script>
+    
 document.addEventListener('DOMContentLoaded', function() {
     // Fonctions pour gérer les modals
     function openModal(modalId) {
@@ -436,6 +234,256 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             studentFields.forEach(el => {
                 el.querySelector('input').required = false;
+            });
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajouter les styles CSS nécessaires pour centrer les modales
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+        /* Style pour les modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            /* Ces propriétés sont essentielles pour centrer la modale */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex !important; /* Utiliser flex pour centrer facilement */
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            margin: auto; /* Aide supplémentaire pour le centrage */
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        /* Style pour le bouton de fermeture */
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        
+        .close-modal:hover {
+            color: #1f2937;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+       
+    `;
+    document.head.appendChild(styleElement);
+
+    // Fonctions pour gérer les modals
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            // Utiliser flex pour centrer la modale
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Ajouter une classe pour l'animation d'entrée
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300); // Correspond à la durée de l'animation
+        }
+    }
+
+    // Ajouter des boutons de test si les boutons originaux sont commentés
+    if (!document.getElementById('signin-button') || document.getElementById('signin-button').style.display === 'none') {
+        const testButtons = document.createElement('div');
+        testButtons.className = 'auth-buttons';
+        testButtons.style.margin = '20px';
+        testButtons.innerHTML = `
+            <button id="test-signin-button" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Tester Connexion
+            </button>
+            <button id="test-signup-button" class="btn btn-secondary" style="margin-left: 10px;">
+                <i class="fas fa-user-plus"></i> Tester Inscription
+            </button>
+        `;
+        document.body.prepend(testButtons);
+        
+        document.getElementById('test-signin-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal('login-modal');
+        });
+        
+        document.getElementById('test-signup-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal('register-modal');
+        });
+    }
+
+    // Gestion du clic sur les boutons de connexion/inscription
+    const signinButton = document.getElementById('signin-button');
+    if (signinButton) {
+        signinButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal('login-modal');
+        });
+    }
+
+    const signupButton = document.getElementById('signup-button');
+    if (signupButton) {
+        signupButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal('register-modal');
+        });
+    }
+
+    // Gestion de la fermeture des modals
+    document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal');
+            closeModal(modalId);
+        });
+    });
+
+    // Fermer en cliquant à l'extérieur
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+            closeModal(e.target.id);
+        }
+    });
+
+    // Switch entre modals
+    // Vérifier si l'élément existe avant d'ajouter l'écouteur d'événement
+    const switchToRegister = document.getElementById('signup-button');
+    if (switchToRegister) {
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal('login-modal');
+            openModal('register-modal');
+        });
+    }
+
+    const switchToLogin = document.getElementById('switch-to-login');
+    if (switchToLogin) {
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal('register-modal');
+            openModal('login-modal');
+        });
+    }
+
+    // Gestion des champs dynamiques pour l'inscription
+    const userTypeSelect = document.getElementById('user_type');
+    if (userTypeSelect) {
+        // Initialisation basée sur l'ancienne valeur (en cas d'erreur de validation)
+        toggleFields(userTypeSelect.value);
+        
+        userTypeSelect.addEventListener('change', function() {
+            toggleFields(this.value);
+        });
+    }
+
+    function toggleFields(userType) {
+        const studentFields = document.querySelectorAll('.student-field');
+        const professorFields = document.querySelectorAll('.professor-field');
+        
+        studentFields.forEach(el => {
+            el.classList.add('hidden');
+            const input = el.querySelector('input');
+            if (input) input.required = false;
+        });
+        
+        professorFields.forEach(el => {
+            el.classList.add('hidden');
+            const input = el.querySelector('input');
+            if (input) input.required = false;
+        });
+        
+        if (userType === 'student') {
+            studentFields.forEach(el => {
+                el.classList.remove('hidden');
+                const input = el.querySelector('input');
+                if (input) input.required = true;
+            });
+        } else if (userType === 'professor') {
+            professorFields.forEach(el => {
+                el.classList.remove('hidden');
+                const input = el.querySelector('input');
+                if (input) input.required = true;
             });
         }
     }
