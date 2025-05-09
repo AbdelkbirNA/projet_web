@@ -665,3 +665,32 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 });
+// Ajouter ce code dans la fonction principale, après la déclaration des variables
+// Vers la ligne 30, après la déclaration de userTypeSelect
+
+// Éléments pour le menu utilisateur
+const userDropdownButton = document.getElementById("user-dropdown-button")
+const userDropdown = document.getElementById("user-dropdown")
+
+// Puis ajoutez ce code dans la section "GESTION DU MENU MOBILE"
+// Après le bloc de code qui gère les clics sur les liens du menu mobile
+
+// ===== GESTION DU MENU UTILISATEUR =====
+if (userDropdownButton && userDropdown) {
+  userDropdownButton.addEventListener("click", (e) => {
+    e.preventDefault()
+    userDropdown.classList.toggle("hidden")
+  })
+
+  // Fermer le menu déroulant en cliquant ailleurs
+  document.addEventListener("click", (e) => {
+    if (
+      userDropdownButton &&
+      !userDropdownButton.contains(e.target) &&
+      userDropdown &&
+      !userDropdown.contains(e.target)
+    ) {
+      userDropdown.classList.add("hidden")
+    }
+  })
+}

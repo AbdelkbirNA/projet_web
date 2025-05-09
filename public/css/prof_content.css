@@ -497,3 +497,69 @@
   .dark .about-text p {
     color: var(--color-text-light-dark-theme);
   }
+  /* Styles pour le menu utilisateur */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background-color: var(--color-background, #fff);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--shadow, 0 4px 12px rgba(0, 0, 0, 0.15));
+  z-index: 100;
+  margin-top: 8px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.user-dropdown:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4, 12px) var(--space-4, 16px);
+  color: var(--color-text, #333);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-background-alt, #f5f5f5);
+}
+
+.dropdown-item i {
+  margin-right: 10px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Styles pour le thème sombre */
+body.dark .user-dropdown {
+  background-color: var(--color-background-dark-theme, #333);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .dropdown-item {
+  color: var(--color-text-dark-theme, #fff);
+}
+
+body.dark .dropdown-item:hover {
+  background-color: var(--color-background-alt-dark-theme, #444);
+}
+
+/* Cacher les formulaires de déconnexion */
+form.hidden {
+  display: none !important;
+}
