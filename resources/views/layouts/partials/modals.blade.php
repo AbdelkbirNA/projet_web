@@ -369,30 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Ajouter des boutons de test si les boutons originaux sont commentés
-    if (!document.getElementById('signin-button') || document.getElementById('signin-button').style.display === 'none') {
-        const testButtons = document.createElement('div');
-        testButtons.className = 'auth-buttons';
-        testButtons.style.margin = '20px';
-        testButtons.innerHTML = `
-            <button id="test-signin-button" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt"></i> Tester Connexion
-            </button>
-            <button id="test-signup-button" class="btn btn-secondary" style="margin-left: 10px;">
-                <i class="fas fa-user-plus"></i> Tester Inscription
-            </button>
-        `;
-        document.body.prepend(testButtons);
-        
-        document.getElementById('test-signin-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal('login-modal');
-        });
-        
-        document.getElementById('test-signup-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal('register-modal');
-        });
-    }
+  
 
     // Gestion du clic sur les boutons de connexion/inscription
     const signinButton = document.getElementById('signin-button');
