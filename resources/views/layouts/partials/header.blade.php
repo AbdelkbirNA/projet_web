@@ -25,18 +25,9 @@
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                             </button>
                             <div id="user-dropdown" class="user-dropdown hidden">
-                                @if(Auth::user()->user_type == 'professor')
-                                    <a href="{{ route('prof_main') }}" class="dropdown-item">
-                                        <i class="fas fa-book"></i> Espace professeur
-                                    </a>
-                                @elseif(Auth::user()->user_type == 'student')
-                                    <a href="{{ route('student_main') }}" class="dropdown-item">
-                                        <i class="fas fa-graduation-cap"></i> Espace étudiant
-                                    </a>
-                                @endif
                                 <a href="{{ route('logout') }}" 
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
-                                   class="dropdown-item">
+                                   class="dropdown-item logout">
                                     <i class="fas fa-sign-out-alt"></i> Déconnexion
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -73,15 +64,10 @@
                     <li><a href="#" id="signup-mobile" class="mobile-nav-link highlight"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
                 @else
                     <li><a href="#" class="mobile-nav-link"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a></li>
-                    @if(Auth::user()->user_type == 'professor')
-                        <li><a href="{{ route('prof_main') }}" class="mobile-nav-link"><i class="fas fa-book"></i> Espace professeur</a></li>
-                    @elseif(Auth::user()->user_type == 'student')
-                        <li><a href="{{ route('student_main') }}" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Espace étudiant</a></li>
-                    @endif
                     <li>
                         <a href="{{ route('logout') }}" 
                            onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();" 
-                           class="mobile-nav-link">
+                           class="mobile-nav-link logout-link">
                             <i class="fas fa-sign-out-alt"></i> Déconnexion
                         </a>
                         <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">
