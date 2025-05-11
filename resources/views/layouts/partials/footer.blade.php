@@ -4,7 +4,7 @@
         <div class="footer-content">
             <div class="footer-info">
                 <div class="footer-logo">
-                    <img src="{{ asset('img/logo-ensiasd.jpg') }}" alt="Logo ENSIASD" class="logo-img">
+                    <img src="{{ asset('IMG/logo.png') }}" style="width: 70%;" alt="Logo ENSIASD" class="logo-img">
                     <h3 class="footer-title">ENSIASD</h3>
                 </div>
                 <p class="footer-description">
