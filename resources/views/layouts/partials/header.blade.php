@@ -2,9 +2,11 @@
 <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo">
-                <img src="{{ asset('IMG/logo.png') }}" alt="Logo ENSIASD" class="logo-img">
-            </div>
+           <div class="logo">
+    <a href="{{ route('home') }}">
+        <img src="{{ asset('IMG/logo.png') }}" alt="Logo ENSIASD" class="logo-img">
+    </a>
+</div>
             
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">

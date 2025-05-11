@@ -4,9 +4,13 @@
         <div class="footer-content">
             <div class="footer-info">
                 <div class="footer-logo">
-                    <img src="{{ asset('IMG/logo.png') }}" style="width: 70%;" alt="Logo ENSIASD" class="logo-img">
-                    <h3 class="footer-title">ENSIASD</h3>
-                </div>
+    <a href="{{ route('home') }}">
+        <img src="{{ asset('IMG/logo.png') }}" style="width: 70%;" alt="Logo ENSIASD" class="logo-img">
+    </a>
+    <h3 class="footer-title">ENSIASD</h3>
+</div>
+
+                
                 <p class="footer-description">
                     École Nationale Supérieure d'Intelligence Artificielle et Science des Données - Former les experts de demain dans les domaines de l'IA et de la Data Science.
                 </p>

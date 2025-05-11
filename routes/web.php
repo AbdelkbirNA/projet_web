@@ -19,10 +19,10 @@ Route::get('/', function () {
 })->name('home');
 
 // Pages publiques accessibles à tous
+
 Route::get('/professors', function () {
     return view('Ensiasd.professors');
-});
-
+})->name('professors');
 Route::get('/abdo', function () {
     return view('professor.Abdo');
 });
