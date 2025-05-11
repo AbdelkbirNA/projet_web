@@ -24,7 +24,10 @@ Route::get('/professors', function () {
 });
 
 Route::get('/abdo', function () {
-    return view('Professors.Abdo');
+    return view('professor.Abdo');
+});
+Route::get('/test', function () {
+    return view('home');
 });
 
 // Groupe de routes protégées
