@@ -472,13 +472,53 @@ document.addEventListener("DOMContentLoaded", () => {
     viewTeamButton.addEventListener("click", (e) => {
       e.preventDefault()
 
-      if (!isUserLoggedIn()) {
-        // Si l'utilisateur n'est pas connecté, ouvrir la modal d'inscription
-        openModal(registerModal)
-      } else {
-        // Si l'utilisateur est déjà connecté, rediriger vers la page d'équipe
-        window.location.href = viewTeamButton.getAttribute("href")
-      }
+      // Vérifier si l'utilisateur est connecté via une requête AJAX
+      fetch("/api/check-auth", {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          Accept: "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.authenticated) {
+            // Si l'utilisateur est connecté, rediriger vers la page des professeurs
+            window.location.href = viewTeamButton.getAttribute("href")
+          } else {
+            // Si l'utilisateur n'est pas connecté, ouvrir la modal de connexion
+            if (loginModal) {
+              // Stocker l'URL de redirection dans un champ caché du formulaire
+              const redirectInput = loginModal.querySelector('input[name="redirect_to"]')
+              if (redirectInput) {
+                redirectInput.value = viewTeamButton.getAttribute("href")
+              } else {
+                // Créer le champ s'il n'existe pas
+                const input = document.createElement("input")
+                input.type = "hidden"
+                input.name = "redirect_to"
+                input.value = viewTeamButton.getAttribute("href")
+                loginForm.appendChild(input)
+              }
+
+              // Ouvrir la modal de connexion
+              openModal(loginModal)
+            } else {
+              // Fallback si la modal n'existe pas
+              window.location.href = "/login?redirect_to=" + encodeURIComponent(viewTeamButton.getAttribute("href"))
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la vérification de l'authentification:", error)
+          // En cas d'erreur, utiliser la méthode existante (fallback)
+          if (!isUserLoggedIn()) {
+            // Si l'utilisateur n'est pas connecté, ouvrir la modal d'inscription
+            openModal(registerModal)
+          } else {
+            // Si l'utilisateur est déjà connecté, rediriger vers la page d'équipe
+            window.location.href = viewTeamButton.getAttribute("href")
+          }
+        })
     })
   }
 

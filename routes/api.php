@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route pour vérifier si l'utilisateur est authentifié
+Route::get('/check-auth', function (Request $request) {
+    return response()->json([
+        'authenticated' => auth()->check()
+    ]);
+});
