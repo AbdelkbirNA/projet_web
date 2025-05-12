@@ -14,10 +14,7 @@
                     <p class="hero-description">
                         Former les experts de demain dans les domaines de l'Intelligence Artificielle et de la Science des Données
                     </p>
-                    <div class="hero-buttons">
-                        <a href="#formations" class="btn btn-outline"><i class="fas fa-graduation-cap"></i> Découvrir nos formations</a>
-                        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Nous contacter</a>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -57,7 +54,25 @@
             </div>
         </div>
     </section>
+<!-- School Gallery Section -->
+<section id="school-gallery" class="school-gallery section">
+    <div class="container">
+        <h2 class="section-title">Notre École</h2>
+        <p class="section-description">
+            Découvrez notre campus et nos installations à travers cette galerie d'images.
+        </p>
 
+        <div class="gallery-grid">
+            @for ($i = 1; $i <= 8; $i++)
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="{{ asset('IMG/ecole/en'.$i.'.jpg') }}" alt="Image de l'école {{ $i }}" class="school-img">
+                    </div>
+                </div>
+            @endfor
+        </div>
+    </div>
+</section>
     <!-- Formations Section -->
     <section id="formations" class="formations section">
         <div class="container">
@@ -175,11 +190,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="professors-more">
-                    <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
-    <i class="fas fa-users"></i> Voir toute l'équipe
-</a>
-                </div>
+                
+<div class="professors-more">
+    <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
+        <i class="fas fa-users"></i> Voir toute l'équipe
+    </a>
+</div>
+
             </div>
         </div>
     </section>

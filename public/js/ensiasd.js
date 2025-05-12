@@ -49,83 +49,115 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== GESTION DU THÈME =====
   // Fonction pour définir le thème
   function setTheme(theme) {
-    if (theme === "dark") {
-      document.body.classList.add("dark")
-      localStorage.setItem("theme", "dark")
-      if (themeIcon) {
-        themeIcon.classList.remove("fa-sun")
-        themeIcon.classList.add("fa-moon")
+    try {
+      // Sélectionner tous les logos (header et footer)
+      const logoImages = document.querySelectorAll(".logo-img");
+      
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        
+        // Changer tous les logos vers la version blanche
+        logoImages.forEach(logo => {
+          const currentSrc = logo.getAttribute("src");
+          // Remplacer logo.png par logow.png
+          if (currentSrc && currentSrc.includes("logo.png")) {
+            logo.setAttribute("src", currentSrc.replace("logo.png", "logow.png"));
+          }
+        });
+        
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+        }
+        
+        if (themeIconMobile) {
+          themeIconMobile.classList.remove("fa-sun");
+          themeIconMobile.classList.add("fa-moon");
+        }
+      } else {
+        document.body.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        
+        // Remettre tous les logos vers la version standard
+        logoImages.forEach(logo => {
+          const currentSrc = logo.getAttribute("src");
+          // Remplacer logow.png par logo.png
+          if (currentSrc && currentSrc.includes("logow.png")) {
+            logo.setAttribute("src", currentSrc.replace("logow.png", "logo.png"));
+          }
+        });
+        
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        }
+        
+        if (themeIconMobile) {
+          themeIconMobile.classList.remove("fa-moon");
+          themeIconMobile.classList.add("fa-sun");
+        }
       }
-      if (themeIconMobile) {
-        themeIconMobile.classList.remove("fa-sun")
-        themeIconMobile.classList.add("fa-moon")
-      }
-    } else {
-      document.body.classList.remove("dark")
-      localStorage.setItem("theme", "light")
-      if (themeIcon) {
-        themeIcon.classList.remove("fa-moon")
-        themeIcon.classList.add("fa-sun")
-      }
-      if (themeIconMobile) {
-        themeIconMobile.classList.remove("fa-moon")
-        themeIconMobile.classList.add("fa-sun")
-      }
+    } catch (error) {
+      console.error("Erreur lors du changement de thème:", error);
     }
   }
 
   // Vérifier le thème enregistré ou les préférences du système
-  const savedTheme = localStorage.getItem("theme")
+  const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
-    setTheme("dark")
+    setTheme("dark");
   } else {
     // Mode clair par défaut
-    setTheme("light")
+    setTheme("light");
   }
 
   // Gérer le clic sur le bouton de thème
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+    themeToggle.addEventListener("click", function(e) {
+      e.preventDefault();
       if (document.body.classList.contains("dark")) {
-        setTheme("light")
+        setTheme("light");
       } else {
-        setTheme("dark")
+        setTheme("dark");
       }
-    })
+    });
   }
 
   // Gérer le clic sur le bouton de thème mobile
   if (themeToggleMobile) {
-    themeToggleMobile.addEventListener("click", (e) => {
-      e.preventDefault()
+    themeToggleMobile.addEventListener("click", function(e) {
+      e.preventDefault();
       if (document.body.classList.contains("dark")) {
-        setTheme("light")
+        setTheme("light");
       } else {
-        setTheme("dark")
+        setTheme("dark");
       }
 
       // Fermer le menu mobile après le changement de thème
       if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-        mobileMenu.classList.add("hidden")
-        const icon = mobileMenuButton.querySelector("i")
+        mobileMenu.classList.add("hidden");
+        const icon = mobileMenuButton.querySelector("i");
         if (icon) {
-          icon.classList.remove("fa-times")
-          icon.classList.add("fa-bars")
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
         }
       }
-    })
+    });
   }
 
   // Écouter les changements de préférence du système
-  prefersDarkScheme.addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      if (e.matches) {
-        setTheme("dark")
-      } else {
-        setTheme("light")
+  if (prefersDarkScheme) {
+    prefersDarkScheme.addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        if (e.matches) {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
       }
-    }
-  })
+    });
+  }
 
   // ===== GESTION DES MODALS =====
   // Fonction pour ouvrir une modal avec animation
@@ -477,10 +509,16 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
           Accept: "application/json",
+          // Ajouter le token CSRF pour que Laravel reconnaisse la session
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
         },
+        // Inclure les cookies dans la requête pour que Laravel reconnaisse la session
+        credentials: "same-origin",
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("Statut d'authentification:", data) // Débogage
+
           if (data.authenticated) {
             // Si l'utilisateur est connecté, rediriger vers la page des professeurs
             window.location.href = viewTeamButton.getAttribute("href")
@@ -510,14 +548,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch((error) => {
           console.error("Erreur lors de la vérification de l'authentification:", error)
-          // En cas d'erreur, utiliser la méthode existante (fallback)
-          if (!isUserLoggedIn()) {
-            // Si l'utilisateur n'est pas connecté, ouvrir la modal d'inscription
-            openModal(registerModal)
-          } else {
-            // Si l'utilisateur est déjà connecté, rediriger vers la page d'équipe
-            window.location.href = viewTeamButton.getAttribute("href")
-          }
+          // En cas d'erreur, rediriger directement vers la page des professeurs
+          // C'est plus sûr que d'ouvrir la modal de connexion en cas d'erreur
+          window.location.href = viewTeamButton.getAttribute("href")
         })
     })
   }
@@ -753,4 +786,195 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   `
   document.head.appendChild(style)
+
+  // ===== GALERIE D'IMAGES DE L'ÉCOLE =====
+  // Fonction pour initialiser la galerie d'images
+  function initializeGallery() {
+    // Sélectionner tous les éléments de la galerie
+    const galleryItems = document.querySelectorAll(".gallery-item")
+    
+    if (galleryItems.length === 0) return; // Sortir si aucun élément de galerie n'est trouvé
+    
+    // Ajouter les styles CSS pour la lightbox
+    const lightboxStyles = document.createElement("style")
+    lightboxStyles.textContent = `
+      .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .lightbox.active {
+        opacity: 1;
+      }
+      
+      .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+      }
+      
+      .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        display: block;
+        border: 2px solid white;
+        border-radius: 4px;
+      }
+      
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        transform: translateY(-50%);
+      }
+      
+      .lightbox-nav button {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        font-size: 24px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .lightbox-nav button:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+    `
+    document.head.appendChild(lightboxStyles)
+    
+    // Créer un tableau avec toutes les sources d'images
+    const allImages = Array.from(galleryItems).map(item => 
+      item.querySelector("img").getAttribute("src")
+    )
+    
+    // Ajouter un gestionnaire d'événements à chaque élément de la galerie
+    galleryItems.forEach((item, index) => {
+      item.addEventListener("click", function() {
+        openLightbox(index, allImages)
+      })
+    })
+  }
+  
+  // Fonction pour ouvrir la lightbox
+  function openLightbox(currentIndex, images) {
+    // Créer l'élément lightbox
+    const lightbox = document.createElement("div")
+    lightbox.className = "lightbox"
+    
+    // Créer le contenu de la lightbox
+    lightbox.innerHTML = `
+      <div class="lightbox-content">
+        <button class="lightbox-close">&times;</button>
+        <img src="${images[currentIndex]}" alt="Image agrandie">
+        <div class="lightbox-nav">
+          <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+          <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    `
+    
+    // Ajouter la lightbox au body
+    document.body.appendChild(lightbox)
+    
+    // Empêcher le défilement du body
+    document.body.style.overflow = "hidden"
+    
+    // Animation d'entrée
+    setTimeout(() => {
+      lightbox.classList.add("active")
+    }, 10)
+    
+    // Gestionnaire pour fermer la lightbox
+    const closeBtn = lightbox.querySelector(".lightbox-close")
+    closeBtn.addEventListener("click", () => {
+      closeLightbox(lightbox)
+    })
+    
+    // Fermer la lightbox en cliquant en dehors de l'image
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox(lightbox)
+      }
+    })
+    
+    // Navigation dans la lightbox
+    const prevBtn = lightbox.querySelector(".prev-btn")
+    const nextBtn = lightbox.querySelector(".next-btn")
+    const lightboxImg = lightbox.querySelector("img")
+    
+    // Fonction pour naviguer vers l'image précédente
+    prevBtn.addEventListener("click", (e) => {
+      e.stopPropagation()
+      currentIndex = (currentIndex - 1 + images.length) % images.length
+      lightboxImg.src = images[currentIndex]
+    })
+    
+    // Fonction pour naviguer vers l'image suivante
+    nextBtn.addEventListener("click", (e) => {
+      e.stopPropagation()
+      currentIndex = (currentIndex + 1) % images.length
+      lightboxImg.src = images[currentIndex]
+    })
+    
+    // Navigation avec les touches du clavier
+    document.addEventListener("keydown", handleKeyDown)
+    
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        closeLightbox(lightbox)
+      } else if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + images.length) % images.length
+        lightboxImg.src = images[currentIndex]
+      } else if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % images.length
+        lightboxImg.src = images[currentIndex]
+      }
+    }
+    
+    // Fonction pour supprimer l'écouteur d'événements lors de la fermeture
+    function closeLightbox(lightbox) {
+      document.removeEventListener("keydown", handleKeyDown)
+      lightbox.classList.remove("active")
+      
+      // Supprimer la lightbox après l'animation
+      setTimeout(() => {
+        document.body.removeChild(lightbox)
+        document.body.style.overflow = "auto"
+      }, 300)
+    }
+  }
+  
+  // Initialiser la galerie
+  initializeGallery()
 })

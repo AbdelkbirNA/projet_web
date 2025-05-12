@@ -6,7 +6,7 @@
 @section('professor_name', 'Prof. Abdlekbir Nainiaa')
 @section('professor_title', 'Professeur en Informatique')
 @section('professor_speciality', 'Spécialiste en Intelligence Artificielle et Apprentissage Automatique')
-@section('professor_image', asset('IMG/abdo1.jpg'))
+@section('professor_image', asset('IMG/abdo2.jpg'))
 
 @section('content')
     <!-- About Section -->
@@ -25,71 +25,14 @@
                     <p>
                         Mon parcours académique inclut un doctorat de l'École Polytechnique et des collaborations avec des institutions comme le MIT et Stanford. Je dirige actuellement le laboratoire d'IA appliquée où nous développons des solutions pour des problèmes complexes dans les domaines de la santé, de l'environnement et de l'éducation.
                     </p>
-                    <div class="about-links">
-                        <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="link-scholar">
-                            <i class="fas fa-graduation-cap"></i> Google Scholar
-                        </a>
-                        <a href="#" class="link-cv">
-                            <i class="fas fa-file-alt"></i> Curriculum Vitae
-                        </a>
-                        <a href="#" class="link-linkedin">
-                            <i class="fab fa-linkedin"></i> LinkedIn
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Research Section -->
-    <section id="research" class="research section">
-        <div class="container">
-            <h2 class="section-title">Recherche</h2>
-            <div class="research-grid">
-                <!-- Research Item 1 -->
-                <div class="research-item">
-                    <div class="research-image">
-                        <img src="{{ asset('IMG/cyber.jpg') }}" alt="Intelligence Artificielle Explicable">
-                    </div>
-                    <div class="research-content">
-                        <h3 class="research-title">Intelligence Artificielle Explicable</h3>
-                        <p class="research-description">
-                            Développement de méthodes pour rendre les décisions des systèmes d'IA compréhensibles et transparentes.
-                        </p>
-                        <a href="#" class="research-link">En savoir plus →</a>
-                    </div>
-                </div>
-
-                <!-- Research Item 2 -->
-                <div class="research-item">
-                    <div class="research-image">
-                        <img src="{{ asset('IMG/data.jpg') }}" alt="Apprentissage Profond pour la Santé">
-                    </div>
-                    <div class="research-content">
-                        <h3 class="research-title">Apprentissage Profond pour la Santé</h3>
-                        <p class="research-description">
-                            Application des techniques d'apprentissage profond pour le diagnostic médical et la découverte de médicaments.
-                        </p>
-                        <a href="#" class="research-link">En savoir plus →</a>
-                    </div>
-                </div>
-
-                <!-- Research Item 3 -->
-                <div class="research-item">
-                    <div class="research-image">
-                        <img src="{{ asset('IMG/il.jpg') }}" alt="Systèmes Multi-Agents">
-                    </div>
-                    <div class="research-content">
-                        <h3 class="research-title">Systèmes Multi-Agents</h3>
-                        <p class="research-description">
-                            Conception de systèmes où plusieurs agents intelligents interagissent pour résoudre des problèmes complexes.
-                        </p>
-                        <a href="#" class="research-link">En savoir plus →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Publications Section -->
     <section id="publications" class="publications section">
@@ -241,63 +184,5 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-content">
-                <div class="contact-form">
-                    <h3 class="contact-subtitle">Envoyez-moi un message</h3>
-                    <form id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Nom</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Sujet</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Envoyer le message</button>
-                    </form>
-                </div>
-
-                <div class="contact-info">
-                    <h3 class="contact-subtitle">Informations de contact</h3>
-                    <div class="info-group">
-                        <h4 class="info-title">Adresse</h4>
-                        <p class="info-text">
-                            ENSIASD<br>
-                            Département d'Informatique<br>
-                            123 Avenue de l'Innovation, 75013 Paris
-                        </p>
-                    </div>
-                    <div class="info-group">
-                        <h4 class="info-title">Email</h4>
-                        <p class="info-text">john.doe@ensiasd.ma</p>
-                    </div>
-                    <div class="info-group">
-                        <h4 class="info-title">Téléphone</h4>
-                        <p class="info-text">+33 1 23 45 67 89</p>
-                    </div>
-                    <div class="info-group">
-                        <h4 class="info-title">Heures de bureau</h4>
-                        <p class="info-text">
-                            Lundi: 14h - 16h<br>
-                            Mercredi: 10h - 12h<br>
-                            Ou sur rendez-vous
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 @endsection
