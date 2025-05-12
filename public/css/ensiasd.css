@@ -1375,343 +1375,69 @@ body.dark .dropdown-item {
 body.dark .dropdown-item:hover {
   background-color: #444;
 }
-/* Styles spécifiques pour le formulaire de profil */
-.profile-form-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+
+/* School Gallery Section */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
 }
 
-.profile-form-card {
-    background-color: var(--color-background);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    transition: var(--transition);
-    border: 1px solid var(--color-border);
+.gallery-item {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+  height: 100%;
 }
 
-.profile-form-section {
-    background-color: var(--color-secondary);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: var(--transition);
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary-light);
 }
 
-.profile-form-section:hover {
-    box-shadow: var(--shadow);
+.gallery-image {
+  height: 250px;
+  overflow: hidden;
 }
 
-.profile-section-title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.profile-photo-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
+.gallery-item:hover .gallery-image img {
+  transform: scale(1.05);
 }
 
-.profile-photo-preview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: var(--color-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-    border: 2px solid var(--color-border);
+/* Dark mode support */
+.dark .gallery-item {
+  background-color: var(--color-background-dark-theme);
+  border-color: var(--color-border-dark-theme);
 }
 
-.profile-photo-upload {
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-photo-button {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-    display: inline-block;
-    text-align: center;
-    font-weight: var(--font-weight-medium);
-}
-
-.profile-photo-button:hover {
-    background-color: var(--color-primary-dark);
-}
-
-.profile-photo-hint {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
-    margin-top: 0.5rem;
-}
-
-.profile-form-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
 }
 
 @media (min-width: 768px) {
-    .profile-form-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.profile-form-item {
-    margin-bottom: 1rem;
-}
-
-.profile-form-label {
-    display: block;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text);
-    margin-bottom: 0.5rem;
-}
-
-.profile-form-input,
-.profile-form-textarea,
-.profile-form-select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
-    background-color: var(--color-background);
-    color: var(--color-text);
-    transition: var(--transition);
-}
-
-.profile-form-input:focus,
-.profile-form-textarea:focus,
-.profile-form-select:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-}
-
-.profile-form-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.profile-social-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-}
-
-.profile-social-icon {
-    width: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.5rem;
-}
-
-.profile-item-card {
-    background-color: var(--color-background);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-    position: relative;
-    transition: var(--transition);
-}
-
-.profile-item-card:hover {
-    box-shadow: var(--shadow-md);
-}
-
-.profile-item-remove {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    color: var(--color-error);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: var(--font-size-sm);
-    transition: var(--transition);
-}
-
-.profile-item-remove:hover {
-    color: var(--color-error);
-    transform: scale(1.1);
-}
-
-.profile-add-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-success);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-sm);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.profile-add-button:hover {
-    background-color: var(--color-success);
-    opacity: 0.9;
-}
-
-.profile-add-button svg {
-    margin-right: 0.25rem;
-}
-
-.profile-form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.profile-form-button {
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.profile-form-button-primary {
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
-}
-
-.profile-form-button-primary:hover {
-    background-color: var(--color-primary-dark);
-}
-
-.profile-form-button-secondary {
-    background-color: var(--color-secondary);
-    color: var(--color-text);
-    border: none;
-}
-
-.profile-form-button-secondary:hover {
-    background-color: var(--color-secondary-dark);
-}
-
-/* Styles pour les cases à cocher */
-.form-checkbox {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
-    background-color: var(--color-background);
-    display: inline-block;
-    position: relative;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    vertical-align: middle;
-}
-
-.form-checkbox:checked {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.form-checkbox:checked::after {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-/* Support du mode sombre */
-.dark .profile-form-card {
-    background-color: var(--color-background-dark-theme);
-    border-color: var(--color-border-dark-theme);
-}
-
-.dark .profile-form-section {
-    background-color: var(--color-background-alt-dark-theme);
-}
-
-.dark .profile-section-title {
-    color: var(--color-text-dark-theme);
-    border-color: var(--color-border-dark-theme);
-}
-
-.dark .profile-photo-preview {
-    background-color: var(--color-background-alt-dark-theme);
-    border-color: var(--color-border-dark-theme);
-}
-
-.dark .profile-photo-button {
-    background-color: var(--color-primary-dark-theme);
-}
-
-.dark .profile-photo-button:hover {
-    background-color: var(--color-primary-dark-dark-theme);
-}
-
-.dark .profile-photo-hint {
-    color: var(--color-text-light-dark-theme);
-}
-
-.dark .profile-form-label {
-    color: var(--color-text-dark-theme);
-}
-
-.dark .profile-form-input,
-.dark .profile-form-textarea,
-.dark .profile-form-select {
-    background-color: var(--color-background-dark-theme);
-    border-color: var(--color-border-dark-theme);
-    color: var(--color-text-dark-theme);
-}
-
-.dark .profile-form-input:focus,
-.dark .profile-form-textarea:focus,
-.dark .profile-form-select:focus {
-    border-color: var(--color-primary-dark-theme);
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
-}
-
-.dark .profile-item-card {
-    background-color: var(--color-background-dark-theme);
-}
-
-.dark .profile-form-button-secondary {
-    background-color: var(--color-background-alt-dark-theme);
-    color: var(--color-text-dark-theme);
-}
-
-.dark .profile-form-button-secondary:hover {
-    background-color: var(--color-border-dark-theme);
-}
-
-.dark .form-checkbox {
-    background-color: var(--color-background-dark-theme);
-    border-color: var(--color-border-dark-theme);
-}
-
-.dark .form-checkbox:checked {
-    background-color: var(--color-primary-dark-theme);
-    border-color: var(--color-primary-dark-theme);
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
