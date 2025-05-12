@@ -5,6 +5,8 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProfileController;
+
 
 // Routes d'authentification personnalisées
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -54,4 +56,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/student/professors/{professor}/publications', [StudentController::class, 'showProfessorPublications'])
             ->name('student.professor.publications');
     });
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+});
+
+
 });

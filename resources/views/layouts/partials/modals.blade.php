@@ -48,10 +48,13 @@
                 <a class="forgot-password" href="#" style="display: block; margin-top: 5px; font-size: 14px; color: #4e73df;">Mot de passe oublié?</a>
             </div>
 
-            <div class="checkbox">
-                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                <label for="remember">Se souvenir de moi</label>
-            </div>
+        <div class="form-group remember-me-container">
+    <div class="checkbox-wrapper">
+        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+        <label for="remember" class="remember-label">Se souvenir de moi</label>
+        <span class="checkmark"></span>
+    </div>
+</div>
 
             <button type="submit" class="btn btn-primary btn-block">
                 <i class="fas fa-sign-in-alt"></i> Se connecter
@@ -59,8 +62,7 @@
         </form>
         
         <div class="modal-footer">
-            <p>Pas encore de compte? <a id="signup-button" data-target="register-modal" class="btn btn-secondary">S'inscrire</a>
-    </a></p>
+            <p>Pas encore de compte? <a id="signup-button" data-target="register-modal" class="btn btn-secondary">S'inscrire</a></p>
         </div>
     </div>
 </div>
@@ -95,14 +97,24 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group">
+                <div class="form-group password-container">
                     <label for="register-password">Mot de passe</label>
-                    <input id="register-password" type="password" name="password" required autocomplete="new-password" minlength="8">
+                    <div class="password-input-wrapper">
+                        <input id="register-password" type="password" name="password" required autocomplete="new-password" minlength="8">
+                        <span class="toggle-password" data-target="register-password">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group password-container">
                     <label for="register-password-confirm">Confirmer mot de passe</label>
-                    <input id="register-password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
+                    <div class="password-input-wrapper">
+                        <input id="register-password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
+                        <span class="toggle-password" data-target="register-password-confirm">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -142,104 +154,12 @@
     </div>
 </div>
 
+
+
+
 <script>
-    
 document.addEventListener('DOMContentLoaded', function() {
-    // Fonctions pour gérer les modals
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    // Gestion du clic sur les boutons de connexion/inscription
-    document.getElementById('signin-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal('login-modal');
-    });
-
-    document.getElementById('signup-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal('register-modal');
-    });
-
-    // Gestion de la fermeture des modals
-    document.querySelectorAll('.close-modal').forEach(button => {
-        button.addEventListener('click', function() {
-            const modalId = this.getAttribute('data-modal');
-            closeModal(modalId);
-        });
-    });
-
-    // Fermer en cliquant à l'extérieur
-    window.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal')) {
-            closeModal(e.target.id);
-        }
-    });
-
-    // Switch entre modals
-    document.getElementById('switch-to-register').addEventListener('click', function(e) {
-        e.preventDefault();
-        closeModal('login-modal');
-        openModal('register-modal');
-    });
-
-    document.getElementById('switch-to-login').addEventListener('click', function(e) {
-        e.preventDefault();
-        closeModal('register-modal');
-        openModal('login-modal');
-    });
-
-    // Gestion des champs dynamiques pour l'inscription
-    const userTypeSelect = document.getElementById('user_type');
-    if (userTypeSelect) {
-        // Initialisation basée sur l'ancienne valeur (en cas d'erreur de validation)
-        toggleFields(userTypeSelect.value);
-        
-        userTypeSelect.addEventListener('change', function() {
-            toggleFields(this.value);
-        });
-    }
-
-    function toggleFields(userType) {
-        const studentFields = document.querySelectorAll('.student-field');
-        const professorFields = document.querySelectorAll('.professor-field');
-        
-        studentFields.forEach(el => el.classList.add('hidden'));
-        professorFields.forEach(el => el.classList.add('hidden'));
-        
-        if (userType === 'student') {
-            studentFields.forEach(el => {
-                el.classList.remove('hidden');
-                el.querySelector('input').required = true;
-            });
-            professorFields.forEach(el => {
-                el.querySelector('input').required = false;
-            });
-        } else if (userType === 'professor') {
-            professorFields.forEach(el => {
-                el.classList.remove('hidden');
-                el.querySelector('input').required = true;
-            });
-            studentFields.forEach(el => {
-                el.querySelector('input').required = false;
-            });
-        }
-    }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    // Ajouter les styles CSS nécessaires pour centrer les modales
+    // Ajouter les styles CSS nécessaires
     const styleElement = document.createElement('style');
     styleElement.textContent = `
         /* Style pour les modales */
@@ -252,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            /* Ces propriétés sont essentielles pour centrer la modale */
             justify-content: center;
             align-items: center;
             opacity: 0;
@@ -260,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .modal.active {
-            display: flex !important; /* Utiliser flex pour centrer facilement */
+            display: flex !important;
             opacity: 1;
         }
         
@@ -274,14 +193,13 @@ document.addEventListener('DOMContentLoaded', function() {
             position: relative;
             transform: translateY(-20px);
             transition: transform 0.3s ease;
-            margin: auto; /* Aide supplémentaire pour le centrage */
+            margin: auto;
         }
         
         .modal.active .modal-content {
             transform: translateY(0);
         }
         
-        /* Style pour le bouton de fermeture */
         .close-modal {
             position: absolute;
             top: 1rem;
@@ -338,7 +256,107 @@ document.addEventListener('DOMContentLoaded', function() {
             display: none !important;
         }
         
-       
+        /* Style pour la case "Se souvenir de moi" */
+        /* Styles pour la case "Se souvenir de moi" */
+.remember-me-container {
+    margin: 1rem 0;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.remember-label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Style pour la case à cocher personnalisée */
+.checkbox-wrapper {
+    position: relative;
+    padding-left: 30px;
+}
+
+.checkbox-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.checkbox-wrapper:hover .checkmark {
+    background-color: #f3f4f6;
+}
+
+.checkbox-wrapper input:checked ~ .checkmark {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-wrapper input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-wrapper .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+        
+        /* Style pour les champs mot de passe avec icône */
+        .password-container {
+            position: relative;
+        }
+        
+        .password-input-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+        }
+        
+        .toggle-password:hover {
+            color: #2563eb;
+        }
     `;
     document.head.appendChild(styleElement);
 
@@ -346,11 +364,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
-            // Utiliser flex pour centrer la modale
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Ajouter une classe pour l'animation d'entrée
             setTimeout(() => {
                 modal.classList.add('active');
             }, 10);
@@ -364,12 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
-            }, 300); // Correspond à la durée de l'animation
+            }, 300);
         }
     }
-
-    // Ajouter des boutons de test si les boutons originaux sont commentés
-  
 
     // Gestion du clic sur les boutons de connexion/inscription
     const signinButton = document.getElementById('signin-button');
@@ -404,7 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Switch entre modals
-    // Vérifier si l'élément existe avant d'ajouter l'écouteur d'événement
     const switchToRegister = document.getElementById('signup-button');
     if (switchToRegister) {
         switchToRegister.addEventListener('click', function(e) {
@@ -426,7 +438,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestion des champs dynamiques pour l'inscription
     const userTypeSelect = document.getElementById('user_type');
     if (userTypeSelect) {
-        // Initialisation basée sur l'ancienne valeur (en cas d'erreur de validation)
         toggleFields(userTypeSelect.value);
         
         userTypeSelect.addEventListener('change', function() {
@@ -464,6 +475,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Fonctionnalité pour afficher/masquer le mot de passe
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
 });
 </script>
 

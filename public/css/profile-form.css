@@ -1,0 +1,415 @@
+/* Variables pour le mode clair et sombre */
+:root {
+  /* Mode clair (par défaut) */
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --bg-section: #f0f7ff;
+  --bg-input: #ffffff;
+  --text-primary: #1e3a8a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: #bfdbfe;
+  --border-input: #d1d5db;
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Conteneur principal */
+.container.mx-auto.py-8.px-4.max-w-4xl {
+  max-width: 1100px !important; /* Augmenté de 4xl (896px) à une valeur plus large */
+  padding-top: 1.5rem !important;
+  padding-bottom: 2rem !important;
+}
+
+/* Carte principale */
+.bg-white.rounded-lg.shadow-lg.p-6 {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg) !important;
+  padding: 1.5rem !important;
+  border-radius: 0.75rem !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Titre principal */
+h2.text-2xl.font-bold.mb-6.text-gray-800.border-b.pb-2 {
+  font-size: 1.5rem !important;
+  margin-bottom: 1.25rem !important;
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--border-color) !important;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Correction de l'icône trop grande au début */
+#photo-preview svg {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  opacity: 0.8;
+  color: var(--blue-500) !important;
+  transition: color 0.3s ease;
+}
+
+/* Ajustement de la taille du conteneur de prévisualisation */
+#photo-preview {
+  width: 7rem !important;
+  height: 7rem !important;
+  border: 2px dashed var(--blue-300) !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-input);
+  box-shadow: var(--shadow);
+}
+
+#photo-preview:hover {
+  border-color: var(--blue-500) !important;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Style pour l'image prévisualisée */
+#photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+#photo-preview:hover img {
+  transform: scale(1.05);
+}
+
+/* Amélioration de la section photo */
+.mb-4:has(#photo-preview) {
+  background-color: var(--bg-section);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem !important;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Bouton de sélection de photo en bleu */
+label.cursor-pointer.bg-blue-500.hover\:bg-blue-600.text-white.py-2.px-4.rounded-md {
+  background-color: var(--blue-600) !important;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  color: white !important;
+}
+
+label.cursor-pointer.bg-blue-500.hover\:bg-blue-600.text-white.py-2.px-4.rounded-md:hover {
+  background-color: var(--blue-700) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Amélioration de l'alignement des labels et des champs */
+.block.text-sm.font-medium.text-gray-700.mb-1 {
+  display: block;
+  margin-bottom: 0.25rem !important;
+  font-weight: 500;
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+
+/* Espacement uniforme entre les champs */
+.grid.grid-cols-1.md\:grid-cols-2.gap-4 {
+  gap: 1.5rem !important; /* Augmenté de 1rem à 1.5rem */
+  margin-bottom: 1.5rem !important; /* Augmenté de 1rem à 1.5rem */
+}
+
+/* Meilleur alignement des champs dans les grilles */
+.grid.grid-cols-1.md\:grid-cols-2.gap-4 > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ajustement des marges pour une meilleure organisation */
+.bg-gray-50.p-4.rounded-md {
+  margin-bottom: 2rem !important; /* Augmenté de 1.5rem à 2rem */
+  padding: 1.5rem !important; /* Augmenté de 1.25rem à 1.5rem */
+  background-color: var(--bg-section) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Amélioration de l'espacement des sections */
+.space-y-8 > * {
+  margin-top: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Ajustement des sous-sections */
+.experience,
+.formation,
+.competence {
+  padding: 1.5rem !important; /* Augmenté de 1rem à 1.5rem */
+  margin-bottom: 1.5rem !important; /* Augmenté de 1rem à 1.5rem */
+  border: 1px solid var(--border-color) !important;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  background-color: var(--bg-card) !important;
+}
+
+.experience:hover,
+.formation:hover,
+.competence:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--blue-300) !important;
+}
+
+/* Amélioration de l'alignement des boutons d'ajout */
+.flex.justify-between.items-center.mb-4 {
+  margin-bottom: 1rem !important;
+}
+
+/* Boutons d'ajout en bleu */
+button.bg-green-500.hover\:bg-green-600.text-white.py-1.px-3.rounded-md.text-sm.flex.items-center {
+  background-color: var(--blue-500) !important;
+  transition: all 0.3s ease;
+  color: white !important;
+}
+
+button.bg-green-500.hover\:bg-green-600.text-white.py-1.px-3.rounded-md.text-sm.flex.items-center:hover {
+  background-color: var(--blue-600) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Correction de l'alignement des réseaux sociaux */
+.flex.items-center.space-x-2 {
+  align-items: center !important;
+  margin-bottom: 0.5rem !important;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--bg-input);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.flex.items-center.space-x-2:focus-within {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.w-8.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2rem;
+  color: var(--text-primary);
+}
+
+/* Amélioration de l'espacement des champs de date */
+input[type="date"] {
+  padding: 0.5rem !important;
+  background-color: var(--bg-input) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-input) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ajustement des marges pour les sections principales */
+h4.text-lg.font-semibold.text-gray-700,
+h4.text-lg.font-semibold.mb-4.text-gray-700 {
+  margin-bottom: 1rem !important;
+  color: var(--text-primary) !important;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Amélioration de l'espacement des boutons de suppression */
+.mt-2.text-right {
+  margin-top: 0.75rem !important;
+}
+
+/* Boutons de suppression en bleu */
+button.text-red-500.hover\:text-red-700.text-sm {
+  color: var(--blue-600) !important;
+  transition: color 0.3s ease;
+}
+
+button.text-red-500.hover\:text-red-700.text-sm:hover {
+  color: var(--blue-700) !important;
+  text-decoration: underline;
+}
+
+/* Correction de l'alignement du "poste actuel" */
+.flex.items-center.space-x-2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Amélioration de l'espacement des champs de texte */
+textarea {
+  min-height: 6rem; /* Augmenté de 5rem à 6rem */
+  background-color: var(--bg-input) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-input) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Styles pour tous les champs de formulaire */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  width: 100% !important;
+  padding: 0.75rem !important; /* Augmenté de 0.5rem à 0.75rem pour plus de hauteur */
+  font-size: 1rem !important;
+  background-color: var(--bg-input) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-input) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Champs de formulaire avec focus bleu */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--blue-500) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+  outline: none !important;
+}
+
+/* CORRECTION: Repositionnement et amélioration des boutons d'action en bas */
+.flex.justify-end.space-x-4 {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+  margin-top: 2rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid var(--border-color);
+  width: 100% !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Bouton d'annulation */
+a.bg-gray-300.hover\:bg-gray-400.text-gray-800.py-2.px-6.rounded-md {
+  background-color: transparent !important;
+  color: var(--blue-600) !important;
+  border: 1px solid var(--blue-300);
+  transition: all 0.3s ease;
+  padding: 0.75rem 2rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block !important;
+  text-align: center !important;
+  min-width: 120px !important;
+}
+
+a.bg-gray-300.hover\:bg-gray-400.text-gray-800.py-2.px-6.rounded-md:hover {
+  background-color: var(--blue-50) !important;
+  border-color: var(--blue-500);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Bouton d'enregistrement */
+button.bg-blue-500.hover\:bg-blue-600.text-white.py-2.px-6.rounded-md {
+  background-color: var(--blue-600) !important;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  padding: 0.75rem 2rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500;
+  color: white !important;
+  display: inline-block !important;
+  text-align: center !important;
+  min-width: 120px !important;
+}
+
+button.bg-blue-500.hover\:bg-blue-600.text-white.py-2.px-6.rounded-md:hover {
+  background-color: var(--blue-700) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Animation pour rendre la page plus dynamique */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg-white.rounded-lg.shadow-lg.p-6 {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Ajustement de la largeur des champs sur mobile */
+@media (max-width: 768px) {
+  .container.mx-auto.py-8.px-4.max-w-4xl {
+    padding: 1rem 1rem !important; /* Augmenté le padding horizontal */
+    width: 95% !important; /* Utiliser presque toute la largeur disponible */
+  }
+
+  .bg-white.rounded-lg.shadow-lg.p-6 {
+    padding: 1rem !important;
+  }
+
+  #photo-preview {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+
+  .w-24.h-24 {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+
+  .flex.items-center {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .flex.items-center > div:not(:first-child) {
+    margin-top: 0.5rem;
+  }
+
+  /* CORRECTION: Boutons sur mobile */
+  .flex.justify-end.space-x-4 {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  a.bg-gray-300.hover\:bg-gray-400.text-gray-800.py-2.px-6.rounded-md,
+  button.bg-blue-500.hover\:bg-blue-600.text-white.py-2.px-6.rounded-md {
+    width: 100% !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px !important; /* Taille de police qui évite le zoom sur mobile */
+  }
+}
