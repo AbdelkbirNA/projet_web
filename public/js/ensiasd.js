@@ -1,6 +1,5 @@
 // Attendre que le DOM soit chargé
 document.addEventListener("DOMContentLoaded", () => {
-  
   // ===== ÉLÉMENTS DOM =====
   // Navigation et menu mobile
   const mobileMenuButton = document.getElementById("mobile-menu-button")
@@ -50,83 +49,115 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== GESTION DU THÈME =====
   // Fonction pour définir le thème
   function setTheme(theme) {
-    if (theme === "dark") {
-      document.body.classList.add("dark")
-      localStorage.setItem("theme", "dark")
-      if (themeIcon) {
-        themeIcon.classList.remove("fa-sun")
-        themeIcon.classList.add("fa-moon")
+    try {
+      // Sélectionner tous les logos (header et footer)
+      const logoImages = document.querySelectorAll(".logo-img");
+      
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        
+        // Changer tous les logos vers la version blanche
+        logoImages.forEach(logo => {
+          const currentSrc = logo.getAttribute("src");
+          // Remplacer logo.png par logow.png
+          if (currentSrc && currentSrc.includes("logo.png")) {
+            logo.setAttribute("src", currentSrc.replace("logo.png", "logow.png"));
+          }
+        });
+        
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+        }
+        
+        if (themeIconMobile) {
+          themeIconMobile.classList.remove("fa-sun");
+          themeIconMobile.classList.add("fa-moon");
+        }
+      } else {
+        document.body.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        
+        // Remettre tous les logos vers la version standard
+        logoImages.forEach(logo => {
+          const currentSrc = logo.getAttribute("src");
+          // Remplacer logow.png par logo.png
+          if (currentSrc && currentSrc.includes("logow.png")) {
+            logo.setAttribute("src", currentSrc.replace("logow.png", "logo.png"));
+          }
+        });
+        
+        if (themeIcon) {
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        }
+        
+        if (themeIconMobile) {
+          themeIconMobile.classList.remove("fa-moon");
+          themeIconMobile.classList.add("fa-sun");
+        }
       }
-      if (themeIconMobile) {
-        themeIconMobile.classList.remove("fa-sun")
-        themeIconMobile.classList.add("fa-moon")
-      }
-    } else {
-      document.body.classList.remove("dark")
-      localStorage.setItem("theme", "light")
-      if (themeIcon) {
-        themeIcon.classList.remove("fa-moon")
-        themeIcon.classList.add("fa-sun")
-      }
-      if (themeIconMobile) {
-        themeIconMobile.classList.remove("fa-moon")
-        themeIconMobile.classList.add("fa-sun")
-      }
+    } catch (error) {
+      console.error("Erreur lors du changement de thème:", error);
     }
   }
 
   // Vérifier le thème enregistré ou les préférences du système
-  const savedTheme = localStorage.getItem("theme")
+  const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
-    setTheme("dark")
+    setTheme("dark");
   } else {
     // Mode clair par défaut
-    setTheme("light")
+    setTheme("light");
   }
 
   // Gérer le clic sur le bouton de thème
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+    themeToggle.addEventListener("click", function(e) {
+      e.preventDefault();
       if (document.body.classList.contains("dark")) {
-        setTheme("light")
+        setTheme("light");
       } else {
-        setTheme("dark")
+        setTheme("dark");
       }
-    })
+    });
   }
 
   // Gérer le clic sur le bouton de thème mobile
   if (themeToggleMobile) {
-    themeToggleMobile.addEventListener("click", (e) => {
-      e.preventDefault()
+    themeToggleMobile.addEventListener("click", function(e) {
+      e.preventDefault();
       if (document.body.classList.contains("dark")) {
-        setTheme("light")
+        setTheme("light");
       } else {
-        setTheme("dark")
+        setTheme("dark");
       }
 
       // Fermer le menu mobile après le changement de thème
       if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-        mobileMenu.classList.add("hidden")
-        const icon = mobileMenuButton.querySelector("i")
+        mobileMenu.classList.add("hidden");
+        const icon = mobileMenuButton.querySelector("i");
         if (icon) {
-          icon.classList.remove("fa-times")
-          icon.classList.add("fa-bars")
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
         }
       }
-    })
+    });
   }
 
   // Écouter les changements de préférence du système
-  prefersDarkScheme.addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      if (e.matches) {
-        setTheme("dark")
-      } else {
-        setTheme("light")
+  if (prefersDarkScheme) {
+    prefersDarkScheme.addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        if (e.matches) {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
       }
-    }
-  })
+    });
+  }
 
   // ===== GESTION DES MODALS =====
   // Fonction pour ouvrir une modal avec animation
@@ -469,8 +500,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Gestionnaire d'événement pour le bouton "Voir toute l'équipe"
-  // SUPPRIMÉ - Nous laissons le comportement par défaut du lien
-
   if (viewTeamButton) {
     viewTeamButton.addEventListener("click", (e) => {
       e.preventDefault()
@@ -757,10 +786,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   `
   document.head.appendChild(style)
-}
-)
-// Ajoutez ce code à la fin de votre événement DOMContentLoaded existant, 
-// juste avant la dernière accolade fermante })
 
   // ===== GALERIE D'IMAGES DE L'ÉCOLE =====
   // Fonction pour initialiser la galerie d'images
@@ -952,5 +977,4 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Initialiser la galerie
   initializeGallery()
-
-// Ne pas oublier de conserver cette accolade fermante de votre événement DOMContentLoaded existant
+})
