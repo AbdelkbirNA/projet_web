@@ -36,10 +36,7 @@
                         <h1 class="hero-title">@yield('professor_name', 'Prof. John Doe')</h1>
                         <h2 class="hero-subtitle">@yield('professor_title', 'Professeur en Informatique')</h2>
                         <p class="hero-description">@yield('professor_speciality', 'Spécialiste en Intelligence Artificielle et Apprentissage Automatique')</p>
-                        <div class="hero-buttons">
-                            <a href="#contact" class="btn btn-outline">Me contacter</a>
-                            <a href="#publications" class="btn btn-outline">Voir mes publications</a>
-                        </div>
+                        
                     </div>
                     <div class="hero-image">
                         <img src="@yield('professor_image', asset('img/default-professor.jpg'))" alt="@yield('professor_name', 'Professeur')" class="professor-img">

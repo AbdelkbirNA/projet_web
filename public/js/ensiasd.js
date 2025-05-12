@@ -1,5 +1,6 @@
 // Attendre que le DOM soit chargé
 document.addEventListener("DOMContentLoaded", () => {
+  
   // ===== ÉLÉMENTS DOM =====
   // Navigation et menu mobile
   const mobileMenuButton = document.getElementById("mobile-menu-button")
@@ -756,4 +757,200 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   `
   document.head.appendChild(style)
-})
+}
+)
+// Ajoutez ce code à la fin de votre événement DOMContentLoaded existant, 
+// juste avant la dernière accolade fermante })
+
+  // ===== GALERIE D'IMAGES DE L'ÉCOLE =====
+  // Fonction pour initialiser la galerie d'images
+  function initializeGallery() {
+    // Sélectionner tous les éléments de la galerie
+    const galleryItems = document.querySelectorAll(".gallery-item")
+    
+    if (galleryItems.length === 0) return; // Sortir si aucun élément de galerie n'est trouvé
+    
+    // Ajouter les styles CSS pour la lightbox
+    const lightboxStyles = document.createElement("style")
+    lightboxStyles.textContent = `
+      .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .lightbox.active {
+        opacity: 1;
+      }
+      
+      .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+      }
+      
+      .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        display: block;
+        border: 2px solid white;
+        border-radius: 4px;
+      }
+      
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        transform: translateY(-50%);
+      }
+      
+      .lightbox-nav button {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        font-size: 24px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .lightbox-nav button:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+    `
+    document.head.appendChild(lightboxStyles)
+    
+    // Créer un tableau avec toutes les sources d'images
+    const allImages = Array.from(galleryItems).map(item => 
+      item.querySelector("img").getAttribute("src")
+    )
+    
+    // Ajouter un gestionnaire d'événements à chaque élément de la galerie
+    galleryItems.forEach((item, index) => {
+      item.addEventListener("click", function() {
+        openLightbox(index, allImages)
+      })
+    })
+  }
+  
+  // Fonction pour ouvrir la lightbox
+  function openLightbox(currentIndex, images) {
+    // Créer l'élément lightbox
+    const lightbox = document.createElement("div")
+    lightbox.className = "lightbox"
+    
+    // Créer le contenu de la lightbox
+    lightbox.innerHTML = `
+      <div class="lightbox-content">
+        <button class="lightbox-close">&times;</button>
+        <img src="${images[currentIndex]}" alt="Image agrandie">
+        <div class="lightbox-nav">
+          <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+          <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    `
+    
+    // Ajouter la lightbox au body
+    document.body.appendChild(lightbox)
+    
+    // Empêcher le défilement du body
+    document.body.style.overflow = "hidden"
+    
+    // Animation d'entrée
+    setTimeout(() => {
+      lightbox.classList.add("active")
+    }, 10)
+    
+    // Gestionnaire pour fermer la lightbox
+    const closeBtn = lightbox.querySelector(".lightbox-close")
+    closeBtn.addEventListener("click", () => {
+      closeLightbox(lightbox)
+    })
+    
+    // Fermer la lightbox en cliquant en dehors de l'image
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox(lightbox)
+      }
+    })
+    
+    // Navigation dans la lightbox
+    const prevBtn = lightbox.querySelector(".prev-btn")
+    const nextBtn = lightbox.querySelector(".next-btn")
+    const lightboxImg = lightbox.querySelector("img")
+    
+    // Fonction pour naviguer vers l'image précédente
+    prevBtn.addEventListener("click", (e) => {
+      e.stopPropagation()
+      currentIndex = (currentIndex - 1 + images.length) % images.length
+      lightboxImg.src = images[currentIndex]
+    })
+    
+    // Fonction pour naviguer vers l'image suivante
+    nextBtn.addEventListener("click", (e) => {
+      e.stopPropagation()
+      currentIndex = (currentIndex + 1) % images.length
+      lightboxImg.src = images[currentIndex]
+    })
+    
+    // Navigation avec les touches du clavier
+    document.addEventListener("keydown", handleKeyDown)
+    
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        closeLightbox(lightbox)
+      } else if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + images.length) % images.length
+        lightboxImg.src = images[currentIndex]
+      } else if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % images.length
+        lightboxImg.src = images[currentIndex]
+      }
+    }
+    
+    // Fonction pour supprimer l'écouteur d'événements lors de la fermeture
+    function closeLightbox(lightbox) {
+      document.removeEventListener("keydown", handleKeyDown)
+      lightbox.classList.remove("active")
+      
+      // Supprimer la lightbox après l'animation
+      setTimeout(() => {
+        document.body.removeChild(lightbox)
+        document.body.style.overflow = "auto"
+      }, 300)
+    }
+  }
+  
+  // Initialiser la galerie
+  initializeGallery()
+
+// Ne pas oublier de conserver cette accolade fermante de votre événement DOMContentLoaded existant

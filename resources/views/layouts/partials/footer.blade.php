@@ -7,7 +7,7 @@
     <a href="{{ route('home') }}">
         <img src="{{ asset('IMG/logo.png') }}" style="width: 90%;" alt="Logo ENSIASD" class="logo-img">
     </a>
-    <h3 class="footer-title">ENSIASD</h3>
+
 </div>
 
                 
