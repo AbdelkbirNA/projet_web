@@ -11,11 +11,12 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="#about" class="nav-link">À propos</a></li>
-                    <li><a href="#formations" class="nav-link">Formations</a></li>
-                    <li><a href="#professors" class="nav-link">Professeurs</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
+            <li><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
+            <li><a href="#about" class="nav-link">À propos</a></li>
+            <li><a href="#formations" class="nav-link">Formations</a></li>
+            <li><a href="#professors" class="nav-link">Professeurs</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
                 <div class="nav-actions">
                     @guest
                         <button id="signin-button" class="btn btn-outline-primary">
