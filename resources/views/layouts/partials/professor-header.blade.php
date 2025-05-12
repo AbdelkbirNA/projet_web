@@ -9,6 +9,7 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
+                    <li><a href="{{ route('homeprof') }}" class="nav-link">Accueil</a></li>
                     <li><a href="#about" class="nav-link">À propos</a></li>
                     <li><a href="#formations" class="nav-link">Cour</a></li>
                     <li><a href="#professors" class="nav-link">Publications</a></li>

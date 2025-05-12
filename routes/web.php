@@ -21,7 +21,7 @@ Route::get('/', function () {
 // Pages publiques accessibles à tous
 Route::get('/abdo', function () {
     return view('professor.Abdo');
-});
+})->name('homeprof');
 Route::get('/test', function () {
     return view('home');
 });
