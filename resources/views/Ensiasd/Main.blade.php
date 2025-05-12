@@ -175,11 +175,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="professors-more">
-                    <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
-    <i class="fas fa-users"></i> Voir toute l'équipe
-</a>
-                </div>
+                
+<div class="professors-more">
+    <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
+        <i class="fas fa-users"></i> Voir toute l'équipe
+    </a>
+</div>
+
             </div>
         </div>
     </section>

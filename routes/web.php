@@ -19,15 +19,18 @@ Route::get('/', function () {
 })->name('home');
 
 // Pages publiques accessibles à tous
-
-Route::get('/professors', function () {
-    return view('Ensiasd.professors');
-})->name('professors');
 Route::get('/abdo', function () {
     return view('professor.Abdo');
 });
 Route::get('/test', function () {
     return view('home');
+});
+
+// Page des professeurs - protégée par authentification
+Route::middleware(['auth'])->group(function () {
+    Route::get('/professors', function () {
+        return view('Ensiasd.professors');
+    })->name('professors');
 });
 
 // Groupe de routes protégées

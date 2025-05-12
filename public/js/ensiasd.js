@@ -468,6 +468,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Gestionnaire d'événement pour le bouton "Voir toute l'équipe"
+  // SUPPRIMÉ - Nous laissons le comportement par défaut du lien
+
   if (viewTeamButton) {
     viewTeamButton.addEventListener("click", (e) => {
       e.preventDefault()
@@ -477,10 +479,16 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
           Accept: "application/json",
+          // Ajouter le token CSRF pour que Laravel reconnaisse la session
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
         },
+        // Inclure les cookies dans la requête pour que Laravel reconnaisse la session
+        credentials: "same-origin",
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("Statut d'authentification:", data) // Débogage
+
           if (data.authenticated) {
             // Si l'utilisateur est connecté, rediriger vers la page des professeurs
             window.location.href = viewTeamButton.getAttribute("href")
@@ -510,14 +518,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch((error) => {
           console.error("Erreur lors de la vérification de l'authentification:", error)
-          // En cas d'erreur, utiliser la méthode existante (fallback)
-          if (!isUserLoggedIn()) {
-            // Si l'utilisateur n'est pas connecté, ouvrir la modal d'inscription
-            openModal(registerModal)
-          } else {
-            // Si l'utilisateur est déjà connecté, rediriger vers la page d'équipe
-            window.location.href = viewTeamButton.getAttribute("href")
-          }
+          // En cas d'erreur, rediriger directement vers la page des professeurs
+          // C'est plus sûr que d'ouvrir la modal de connexion en cas d'erreur
+          window.location.href = viewTeamButton.getAttribute("href")
         })
     })
   }
