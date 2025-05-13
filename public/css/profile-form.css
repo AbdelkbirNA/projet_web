@@ -160,35 +160,7 @@ select {
 }
 
 /* ===== THEME TOGGLE ===== */
-.theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  box-shadow: var(--shadow);
-  z-index: 100;
-  transition: var(--transition);
-}
 
-.theme-toggle:hover {
-  background-color: var(--color-secondary);
-}
-
-.dark .theme-toggle {
-  background-color: var(--color-background-alt-dark-theme);
-  color: var(--color-text-dark-theme);
-}
-
-.dark .theme-toggle:hover {
-  background-color: var(--color-background-dark-theme);
-}
 
 /* ===== PROFILE FORM STYLES ===== */
 .container.mx-auto.py-8.px-4.max-w-4xl {
