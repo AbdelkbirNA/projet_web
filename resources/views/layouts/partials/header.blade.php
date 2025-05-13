@@ -27,10 +27,14 @@
                             <button id="user-dropdown-button" class="btn btn-outline-primary">
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                             </button>
-                            <div id="user-dropdown" class="user-dropdown hidden">
+            
+                           <div id="user-dropdown" class="user-dropdown hidden">
+                                <a href="{{ route('profile.create') }}" class="dropdown-item">
+    <i class="fas fa-id-badge"></i> Profil
+</a>
                                 <a href="{{ route('logout') }}" 
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
-                                   class="dropdown-item logout">
+                                   class="dropdown-item">
                                     <i class="fas fa-sign-out-alt"></i> Déconnexion
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
