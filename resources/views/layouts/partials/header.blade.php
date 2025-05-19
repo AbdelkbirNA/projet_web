@@ -12,9 +12,29 @@
             <nav class="nav-desktop">
                 <ul class="nav-links">
             <li><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
-            <li><a href="#about" class="nav-link">À propos</a></li>
+            <li>
+                @auth
+                    @if(Auth::user()->isProfessor())
+                        <a href="{{ route('profile.about', Auth::user()->id) }}" class="nav-link">À propos</a>
+                    @else
+                        <a href="#about" class="nav-link">À propos</a>
+                    @endif
+                @else
+                    <a href="#about" class="nav-link">À propos</a>
+                @endauth
+            </li>
             <li><a href="#formations" class="nav-link">Formations</a></li>
-            <li><a href="#professors" class="nav-link">Professeurs</a></li>
+            <li>
+                @auth
+                    @if(Auth::user()->isProfessor())
+                        <a href="{{ route('professors') }}" class="nav-link">Professeurs</a>
+                    @else
+                        <a href="#professors" class="nav-link">Professeurs</a>
+                    @endif
+                @else
+                    <a href="#professors" class="nav-link">Professeurs</a>
+                @endauth
+            </li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
                 <div class="nav-actions">
@@ -61,9 +81,29 @@
         <!-- Menu Mobile -->
         <nav id="mobile-menu" class="mobile-menu hidden">
             <ul class="mobile-nav-links">
-                <li><a href="#about" class="mobile-nav-link"><i class="fas fa-info-circle"></i> À propos</a></li>
+                <li>
+                    @auth
+                        @if(Auth::user()->isProfessor())
+                            <a href="{{ route('profile.about', Auth::user()->id) }}" class="mobile-nav-link"><i class="fas fa-info-circle"></i> À propos</a>
+                        @else
+                            <a href="#about" class="mobile-nav-link"><i class="fas fa-info-circle"></i> À propos</a>
+                        @endif
+                    @else
+                        <a href="#about" class="mobile-nav-link"><i class="fas fa-info-circle"></i> À propos</a>
+                    @endauth
+                </li>
                 <li><a href="#formations" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Formations</a></li>
-                <li><a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a></li>
+                <li>
+                    @auth
+                        @if(Auth::user()->isProfessor())
+                            <a href="{{ route('professors') }}" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a>
+                        @else
+                            <a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a>
+                        @endif
+                    @else
+                        <a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a>
+                    @endauth
+                </li>
                 <li><a href="#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="#" id="theme-toggle-mobile" class="mobile-nav-link"><i class="fas fa-sun"></i> Changer de thème</a></li>
                 @guest

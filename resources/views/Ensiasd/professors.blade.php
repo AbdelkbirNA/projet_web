@@ -4,7 +4,6 @@
 @section('description', 'Découvrez les professeurs de l\'ENSIASD')
 
 @push('styles')
-
 @endpush
 
 @section('content')
@@ -42,95 +41,29 @@
             
             <!-- Professors Grid -->
             <div class="professors-grid">
-                <!-- Professor 1 -->
-                <div class="professor-card" data-department="data-science">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof1.jpeg') }}" alt="Prof. John Doe">
+                @forelse($professors as $professor)
+                    <div class="professor-card" data-department="{{ strtolower($professor->specialite) }}">
+                        <div class="professor-image">
+                            @if($professor->photo)
+                                <img src="{{ asset('storage/' . $professor->photo) }}" alt="{{ $professor->prenom }} {{ $professor->nom }}">
+                            @else
+                                <img src="{{ asset('IMG/prof1.jpeg') }}" alt="{{ $professor->prenom }} {{ $professor->nom }}">
+                            @endif
+                        </div>
+                        <div class="professor-content">
+                            <h3 class="professor-name">{{ $professor->prenom }} {{ $professor->nom }}</h3>
+                            <p class="professor-title">{{ $professor->specialite }}</p>
+                            <p class="professor-description">
+                                {{ $professor->statut }}
+                            </p>
+                            <a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>
+                        </div>
                     </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. John Doe</h3>
-                        <p class="professor-title">Sciences Des Données, Big Data & IA</p>
-                        <p class="professor-description">
-                            Spécialiste en apprentissage automatique et IA explicable avec plus de 15 ans d'expérience.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
+                @empty
+                    <div class="alert alert-info text-center w-100">
+                        Aucun professeur n'est disponible pour le moment.
                     </div>
-                </div>
-                
-                <!-- Professor 2 -->
-                <div class="professor-card" data-department="security">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof2.jpg') }}" alt="Prof. Jane Smith">
-                    </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. Jane Smith</h3>
-                        <p class="professor-title">Sécurité IT Et Confiance Numérique</p>
-                        <p class="professor-description">
-                            Experte en sécurité des systèmes d'information et cryptographie avancée.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
-                    </div>
-                </div>
-                
-                <!-- Professor 3 -->
-                <div class="professor-card" data-department="management">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof3.jpg') }}" alt="Prof. Ahmed Benali">
-                    </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. Ahmed Benali</h3>
-                        <p class="professor-title">Management et Gouvernance des SI</p>
-                        <p class="professor-description">
-                            Chercheur renommé en gouvernance des systèmes d'information et transformation digitale.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
-                    </div>
-                </div>
-                
-                <!-- Professor 4 -->
-                <div class="professor-card" data-department="software">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof1.jpeg') }}" alt="Prof. Maria Garcia">
-                    </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. Maria Garcia</h3>
-                        <p class="professor-title">Ingénierie Logicielle</p>
-                        <p class="professor-description">
-                            Spécialiste en génie logiciel, architecture des systèmes et méthodes agiles.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
-                    </div>
-                </div>
-                
-                <!-- Professor 5 -->
-                <div class="professor-card" data-department="security">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof2.jpg') }}" alt="Prof. David Chen">
-                    </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. David Chen</h3>
-                        <p class="professor-title">Sécurité IT Et Confiance Numérique</p>
-                        <p class="professor-description">
-                            Expert en sécurité des réseaux et analyse forensique numérique.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
-                    </div>
-                </div>
-                
-                <!-- Professor 6 -->
-                <div class="professor-card" data-department="data-science">
-                    <div class="professor-image">
-                        <img src="{{ asset('IMG/prof3.jpg') }}" alt="Prof. Sarah Johnson">
-                    </div>
-                    <div class="professor-content">
-                        <h3 class="professor-name">Prof. Sarah Johnson</h3>
-                        <p class="professor-title">Sciences Des Données, Big Data & IA</p>
-                        <p class="professor-description">
-                            Spécialiste en statistiques avancées et modélisation prédictive.
-                        </p>
-                        <a href="#" class="btn btn-small btn-primary">Voir le profil</a>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

@@ -22,9 +22,8 @@ Route::get('/', function () {
 
 // Pages publiques accessibles à tous
 
-Route::get('/professors', function () {
-    return view('Ensiasd.professors');
-})->name('professors');
+Route::get('/professors', [ProfileController::class, 'index'])->name('professors');
+Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
 Route::get('/abdo', function () {
     return view('professor.Abdo');
 })->name('homeprof');
@@ -61,7 +60,16 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    Route::get('/about', [ProfileController::class, 'show'])->name('profile.about');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
+// Route pour la mise à jour de la photo de profil
+Route::put('/profile/{id}/photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
+// Route pour la mise à jour des infos de contact
+Route::put('/profile/{id}/contact', [ProfileController::class, 'updateContact'])->name('profile.updateContact');
+
+// Route pour la mise à jour du profil
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 });

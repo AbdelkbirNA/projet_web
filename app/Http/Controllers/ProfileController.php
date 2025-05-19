@@ -85,4 +85,61 @@ class ProfileController extends Controller
         // 8. Rediriger avec message
         return redirect()->route('home')->with('success', 'Profil créé avec succès !');
     }
+
+    public function show()
+    {
+        $profile = Profile::where('user_id', Auth::id())->with(['formations', 'competences', 'experiences'])->first();
+        
+        if (!$profile) {
+            return redirect()->route('profile.create')->with('warning', 'Veuillez d\'abord créer votre profil.');
+        }
+
+        return view('profile.about', compact('profile'));
+    }
+
+    public function showProfessor($id)
+    {
+        $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
+        
+        if (!$profile) {
+            return redirect()->back()->with('error', 'Profil non trouvé.');
+        }
+
+        return view('profile.about', compact('profile'));
+    }
+
+    public function index()
+    {
+        $professors = Profile::whereHas('user', function($query) {
+            $query->where('user_type', 'professor');
+        })->with('user')->get();
+
+        return view('Ensiasd.professors', compact('professors'));
+    }
+
+    public function edit()
+    {
+        $profile = Profile::where('user_id', auth()->id())->firstOrFail();
+        return view('profile.edit', compact('profile'));
+    }
+
+    public function update(Request $request)
+    {
+        $profile = Profile::where('user_id', auth()->id())->firstOrFail();
+
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|email',
+            'telephone' => 'nullable|string|max:255',
+            'adresse' => 'nullable|string|max:255',
+            'specialite' => 'nullable|string|max:255',
+            'reseaux_sociaux' => 'nullable|string|max:255',
+            'biographie' => 'nullable|string',
+        ]);
+
+        $profile->update($validated);
+
+        return redirect()->route('profile.about')->with('success', 'Profil mis à jour avec succès.');
+    }
 }
