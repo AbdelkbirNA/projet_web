@@ -19,7 +19,8 @@
     @endif
 </li>
                     <li><a href="{{ route('profile.about') }}" class="nav-link">À propos</a></li>
-<li><a href="{{ route('courses.index') }}" class="nav-link">Cour</a></li>                    <li><a href="#professors" class="nav-link">Publications</a></li>
+<li><a href="{{ route('courses.index') }}" class="nav-link">Cour</a></li>         
+           <li><a href="#professors" class="nav-link">Publications</a></li>
                     <li><a href="#contact" class="nav-link">Boite Message</a></li>
                 </ul>
                 <div class="nav-actions">
