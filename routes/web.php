@@ -6,6 +6,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CourseController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\AnswerController;
+
+
 
 
 // Routes d'authentification personnalisées
@@ -71,5 +79,64 @@ Route::put('/profile/{id}/contact', [ProfileController::class, 'updateContact'])
 
 // Route pour la mise à jour du profil
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+
+Route::resource('courses', CourseController::class);
+
+
+Route::get('/courses/resources/{filename}', function ($filename) {
+    $path = storage_path('app/resources/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    return Response::make($file, 200, [
+        'Content-Type' => $type,
+        'Content-Disposition' => 'inline; filename="' . $filename . '"'
+    ]);
+})->name('courses.resources.view');
+
+
+Route::get('/courses/resources/download/{filename}', function ($filename) {
+    $path = storage_path('app/resources/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $type = File::mimeType($path);
+
+    return Response::download($path, $filename, [
+        'Content-Type' => $type,
+    ]);
+})->name('courses.resources.download');
+
+
+Route::middleware('auth')->group(function () {
+
+    // Professeur : gestion questions
+    Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])->name('questions.index');
+    Route::get('/courses/{course}/questions/create', [QuestionController::class, 'create'])->name('questions.create');
+    Route::post('/courses/{course}/questions', [QuestionController::class, 'store'])->name('questions.store');
+    Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+    Route::put('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
+    Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+    // Étudiant : accès forum + réponses
+    Route::get('/courses/{course}/forum', [ForumController::class, 'show'])->name('forum.show');
+    Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
+});
+
+Route::get('courses/resources/view/{filename}', [CourseController::class, 'viewResource'])
+    ->where('filename', '.*')
+    ->name('courses.resources.view');
+
+Route::get('courses/resources/download/{filename}', [CourseController::class, 'downloadResource'])
+    ->where('filename', '.*')
+    ->name('courses.resources.download');
 
 });

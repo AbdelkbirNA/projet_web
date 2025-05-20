@@ -71,4 +71,5 @@ class LoginController extends Controller
         // Rediriger vers la page précédente
         return redirect($previousUrl);
     }
+    
 }

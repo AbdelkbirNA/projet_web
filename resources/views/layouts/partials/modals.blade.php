@@ -9,14 +9,6 @@
 </head>
 <body>
 
-<!-- <div class="auth-buttons">
-    <button id="signin-button" data-target="login-modal" class="btn btn-primary">
-        <i class="fas fa-sign-in-alt"></i> Se connecterss
-    </button>
-    <button id="signup-button" data-target="register-modal" class="btn btn-secondary">
-        <i class="fas fa-user-plus"></i> S'inscrire
-    </button>
-</div> -->
 
 <!-- Modal de connexion -->
 <div id="login-modal" class="modal">
@@ -24,15 +16,21 @@
         <span class="close-modal" data-modal="login-modal">&times;</span>
         <h2>Connexion</h2>
         
-        @if($errors->any())
-            <div class="alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        {{-- Affichage des erreurs de validation --}}
+@if ($errors->any())
+    <div class="alert alert-danger" style="
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    ">
+        <strong>Oups, une ou plusieurs erreurs sont survenues </strong>
+    </div>
+@endif
+
+
         
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -42,19 +40,25 @@
                 <input id="login-email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
             </div>
 
-            <div class="form-group">
-                <label for="login-password">Mot de passe</label>
-                <input id="login-password" type="password" name="password" required autocomplete="current-password">
-                <a class="forgot-password" href="#" style="display: block; margin-top: 5px; font-size: 14px; color: #4e73df;">Mot de passe oublié?</a>
-            </div>
 
-        <div class="form-group remember-me-container">
-    <div class="checkbox-wrapper">
-        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-        <label for="remember" class="remember-label">Se souvenir de moi</label>
-        <span class="checkmark"></span>
+            <div class="form-group password-container">
+    <label for="login-password">Mot de passe</label>
+    <div class="password-input-wrapper">
+        <input id="login-password" type="password" name="password" required autocomplete="current-password">
+        <span class="toggle-password" data-target="login-password">
+            <i class="fas fa-eye"></i>
+        </span>
     </div>
+    <a class="forgot-password" href="#" style="display: block; margin-top: 5px; font-size: 14px; color: #4e73df;">Mot de passe oublié?</a>
 </div>
+
+            <div class="form-group remember-me-container">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label for="remember" class="remember-label">Se souvenir de moi</label>
+                    <span class="checkmark"></spa       n>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary btn-block">
                 <i class="fas fa-sign-in-alt"></i> Se connecter
@@ -65,7 +69,21 @@
             <p>Pas encore de compte? <a id="signup-button" data-target="register-modal" class="btn btn-secondary">S'inscrire</a></p>
         </div>
     </div>
+    @if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            loginModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+</script>
+@endif
+
 </div>
+
 
 <!-- Modal d'inscription -->
 <div id="register-modal" class="modal">
@@ -494,6 +512,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    
 });
 </script>
 
