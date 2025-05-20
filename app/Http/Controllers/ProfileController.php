@@ -84,6 +84,8 @@ class ProfileController extends Controller
 
         // 8. Rediriger avec message
         return redirect()->route('home')->with('success', 'Profil créé avec succès !');
+
+        
     }
 
     public function show()
@@ -142,4 +144,6 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.about')->with('success', 'Profil mis à jour avec succès.');
     }
+
+    
 }

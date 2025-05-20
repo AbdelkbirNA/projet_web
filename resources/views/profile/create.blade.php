@@ -55,9 +55,16 @@
                     </div>
 
                     <div>
-                        <label for="specialite" class="block text-sm font-medium text-gray-700 mb-1">Spécialité:</label>
-                        <input type="text" name="specialite" id="specialite" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
+    <label for="specialite" class="block text-sm font-medium text-gray-700 mb-1">Spécialité:</label>
+    <select name="specialite" id="specialite" onchange="toggleSpecialiteAutre(this)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">-- Sélectionner --</option>
+        <option value="Sciences Des Données Big Data & IA">Sciences Des Données, Big Data & IA</option>
+        <option value="Sécurité IT Et Confiance Numérique">Sécurité IT Et Confiance Numérique</option>
+        <option value="Management et Gouvernance des Systèmes d'Information">Management et Gouvernance des Systèmes d'Information</option>
+        <option value="Ingénierie Logicielle">Ingénierie Logicielle</option>
+    </select>
+    <input type="text" name="specialite_autre" id="specialite_autre" placeholder="Spécialité personnalisée" class="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md hidden">
+</div>
 
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
