@@ -58,18 +58,14 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
-    {
-        // Stocker l'URL actuelle avant la déconnexion
-        $previousUrl = url()->previous();
-        
-        $this->guard()->logout();
-        
-        $request->session()->invalidate();
-        
-        $request->session()->regenerateToken();
-        
-        // Rediriger vers la page précédente
-        return redirect($previousUrl);
-    }
-    
+{
+    $this->guard()->logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    // Rediriger vers la page d'accueil après déconnexion
+    return redirect()->route('home');
+}
 }

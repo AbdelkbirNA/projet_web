@@ -13,31 +13,35 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AnswerController;
 
-
-
-
 // Routes d'authentification personnalisées
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
-
+Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
 // Page d'accueil
 Route::get('/', function () {
     return view('Ensiasd.Main');
 })->name('home');
-
-// Pages publiques accessibles à tous
-
-Route::get('/professors', [ProfileController::class, 'index'])->name('professors');
-Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
 Route::get('/abdo', function () {
     return view('professor.Abdo');
-})->name('homeprof');
-Route::get('/test', function () {
-    return view('home');
-});
+})->name('home2');
+
+// Pages publiques accessibles à tous
+Route::get('/professors', [ProfileController::class, 'index'])->name('professors');
+Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
+
+// Route spécifique pour Prof Abdo (tu peux en ajouter d'autres pour chaque prof)
+Route::get('/professors/abdo', function () {
+    return view('professor.Abdo');
+})->name('professor.abdo');
+
+// Exemple de route dynamique si tu veux généraliser (optionnel)
+// Route::get('/professors/{slug}', [ProfessorController::class, 'show'])->name('professor.show');
+
+// Route pour afficher un profil depuis la base (si besoin)
+Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
 
 // Groupe de routes protégées
 Route::middleware(['auth'])->group(function () {
@@ -64,59 +68,50 @@ Route::middleware(['auth'])->group(function () {
             ->name('student.professor.publications');
     });
 
-
-Route::middleware(['auth'])->group(function () {
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
     Route::get('/about', [ProfileController::class, 'show'])->name('profile.about');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-});
 
-// Route pour la mise à jour de la photo de profil
-Route::put('/profile/{id}/photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
-// Route pour la mise à jour des infos de contact
-Route::put('/profile/{id}/contact', [ProfileController::class, 'updateContact'])->name('profile.updateContact');
+    // Route pour la mise à jour de la photo de profil
+    Route::put('/profile/{id}/photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
+    // Route pour la mise à jour des infos de contact
+    Route::put('/profile/{id}/contact', [ProfileController::class, 'updateContact'])->name('profile.updateContact');
 
-// Route pour la mise à jour du profil
-Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    // Route pour la mise à jour du profil
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::resource('courses', CourseController::class);
 
-Route::resource('courses', CourseController::class);
+    Route::get('/courses/resources/{filename}', function ($filename) {
+        $path = storage_path('app/resources/' . $filename);
 
+        if (!File::exists($path)) {
+            abort(404);
+        }
 
-Route::get('/courses/resources/{filename}', function ($filename) {
-    $path = storage_path('app/resources/' . $filename);
+        $file = File::get($path);
+        $type = File::mimeType($path);
 
-    if (!File::exists($path)) {
-        abort(404);
-    }
+        return Response::make($file, 200, [
+            'Content-Type' => $type,
+            'Content-Disposition' => 'inline; filename="' . $filename . '"'
+        ]);
+    })->name('courses.resources.view');
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
+    Route::get('/courses/resources/download/{filename}', function ($filename) {
+        $path = storage_path('app/resources/' . $filename);
 
-    return Response::make($file, 200, [
-        'Content-Type' => $type,
-        'Content-Disposition' => 'inline; filename="' . $filename . '"'
-    ]);
-})->name('courses.resources.view');
+        if (!File::exists($path)) {
+            abort(404);
+        }
 
+        $type = File::mimeType($path);
 
-Route::get('/courses/resources/download/{filename}', function ($filename) {
-    $path = storage_path('app/resources/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $type = File::mimeType($path);
-
-    return Response::download($path, $filename, [
-        'Content-Type' => $type,
-    ]);
-})->name('courses.resources.download');
-
-
-Route::middleware('auth')->group(function () {
+        return Response::download($path, $filename, [
+            'Content-Type' => $type,
+        ]);
+    })->name('courses.resources.download');
 
     // Professeur : gestion questions
     Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])->name('questions.index');
@@ -129,14 +124,12 @@ Route::middleware('auth')->group(function () {
     // Étudiant : accès forum + réponses
     Route::get('/courses/{course}/forum', [ForumController::class, 'show'])->name('forum.show');
     Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
-});
 
-Route::get('courses/resources/view/{filename}', [CourseController::class, 'viewResource'])
-    ->where('filename', '.*')
-    ->name('courses.resources.view');
+    Route::get('courses/resources/view/{filename}', [CourseController::class, 'viewResource'])
+        ->where('filename', '.*')
+        ->name('courses.resources.view');
 
-Route::get('courses/resources/download/{filename}', [CourseController::class, 'downloadResource'])
-    ->where('filename', '.*')
-    ->name('courses.resources.download');
-
+    Route::get('courses/resources/download/{filename}', [CourseController::class, 'downloadResource'])
+        ->where('filename', '.*')
+        ->name('courses.resources.download');
 });

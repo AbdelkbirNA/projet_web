@@ -100,15 +100,15 @@ class ProfileController extends Controller
     }
 
     public function showProfessor($id)
-    {
-        $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
-        
-        if (!$profile) {
-            return redirect()->back()->with('error', 'Profil non trouvé.');
-        }
-
-        return view('profile.about', compact('profile'));
+{
+    $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
+    
+    if (!$profile) {
+        return redirect()->back()->with('error', 'Profil non trouvé.');
     }
+
+    return view('professor.show', compact('profile'));
+}
 
     public function index()
     {

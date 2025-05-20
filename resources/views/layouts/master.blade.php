@@ -18,8 +18,12 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Header -->
-    @include('layouts.partials.header')
+    <!-- Header dynamique selon le type d'utilisateur -->
+    @if(Auth::check() && Auth::user()->user_type === 'professor')
+        @include('layouts.partials.headerprof')
+    @else
+        @include('layouts.partials.header')
+    @endif
 
     <!-- Main Content -->
     <main>
