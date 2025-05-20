@@ -111,6 +111,8 @@ Route::get('/about/{id}', [ProfileController::class, 'showAbout'])->name('profil
             'Content-Type' => $type,
         ]);
     })->name('courses.resources.download');
+    
+Route::get('/professor/{id}/courses', [CourseController::class, 'professorCourses'])->name('professor.courses');
 Route::get('/professor/{id}/courses', [CourseController::class, 'professorCourses'])->name('professor.courses');
     // Professeur : gestion questions
     Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])->name('questions.index');

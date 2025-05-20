@@ -109,6 +109,13 @@ class ProfileController extends Controller
 
     return view('professor.show', compact('profile'));
 }
+
+public function professorCourses($id)
+{
+    $courses = Course::where('user_id', $id)->get();
+    $professor = Profile::where('user_id', $id)->first();
+    return view('courses.index', compact('courses', 'professor'));
+}
 public function showAbout($id)
 {
     $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
@@ -120,12 +127,7 @@ public function showAbout($id)
     return view('profile.about', compact('profile'));
 }
 
-public function professorCourses($id)
-{
-    $courses = Course::where('user_id', $id)->get();
-    $professor = Profile::where('user_id', $id)->first();
-    return view('courses.index', compact('courses', 'professor'));
-}
+
     public function index()
     {
         $professors = Profile::whereHas('user', function($query) {
