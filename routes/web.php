@@ -68,9 +68,8 @@ Route::middleware(['auth'])->group(function () {
             ->name('student.professor.publications');
     });
 
-    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+Route::get('/about/{id}', [ProfileController::class, 'showAbout'])->name('profile.about');    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
-    Route::get('/about', [ProfileController::class, 'show'])->name('profile.about');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
     // Route pour la mise à jour de la photo de profil
@@ -112,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
             'Content-Type' => $type,
         ]);
     })->name('courses.resources.download');
-
+Route::get('/professor/{id}/courses', [CourseController::class, 'professorCourses'])->name('professor.courses');
     // Professeur : gestion questions
     Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])->name('questions.index');
     Route::get('/courses/{course}/questions/create', [QuestionController::class, 'create'])->name('questions.create');

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.type')
 <link rel="stylesheet" href="{{ asset('css/profile-form.css') }}">
 <script src="{{ asset('js/profile-preview.js') }}" defer></script>
 

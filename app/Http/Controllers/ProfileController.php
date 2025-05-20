@@ -8,7 +8,7 @@ use App\Models\Profile;
 use App\Models\Formation;
 use App\Models\Competence;
 use App\Models\Experience;
-
+use App\Models\Course;
 class ProfileController extends Controller
 {
     // Affiche le formulaire de création
@@ -109,7 +109,23 @@ class ProfileController extends Controller
 
     return view('professor.show', compact('profile'));
 }
+public function showAbout($id)
+{
+    $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
 
+    if (!$profile) {
+        return redirect()->back()->with('error', 'Profil non trouvé.');
+    }
+
+    return view('profile.about', compact('profile'));
+}
+
+public function professorCourses($id)
+{
+    $courses = Course::where('user_id', $id)->get();
+    $professor = Profile::where('user_id', $id)->first();
+    return view('courses.index', compact('courses', 'professor'));
+}
     public function index()
     {
         $professors = Profile::whereHas('user', function($query) {

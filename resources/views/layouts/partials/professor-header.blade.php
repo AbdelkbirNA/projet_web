@@ -12,8 +12,12 @@
             <nav class="nav-desktop">
                 <ul class="nav-links">
                     <li><a href="" class="nav-link">Accueil</a></li>
-                    <li><a href="{{ route('profile.about') }}" class="nav-link">À propos</a></li>
-<li><a href="{{ route('courses.index') }}" class="nav-link">Cour</a></li>         
+                <li>
+    <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
+</li>
+<li>
+    <a href="{{ route('professor.courses', ['id' => Auth::user()->id]) }}" class="nav-link">Cour</a>
+</li>     
                     <li><a href="#professors" class="nav-link">Publications</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -62,7 +66,6 @@
         <!-- Menu Mobile -->
         <nav id="mobile-menu" class="mobile-menu hidden">
             <ul class="mobile-nav-links">
-                <li><a href="{{ route('profile.about') }}" class="mobile-nav-link"><i class="fas fa-info-circle"></i> À propos</a></li>
                 <li><a href="#formations" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Formations</a></li>
                 <li><a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a></li>
                 <li><a href="#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
