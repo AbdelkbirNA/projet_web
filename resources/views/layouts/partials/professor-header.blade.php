@@ -19,7 +19,7 @@
 <a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
 <li>    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}" class="nav-link">Publications</a>
 
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="{{route('contact.show')}}" class="nav-link">Contact</a></li>
                 </ul>
 
 
