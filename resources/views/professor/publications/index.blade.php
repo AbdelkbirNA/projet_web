@@ -3,275 +3,339 @@
 @section('title', 'Mes Publications - Professeur')
 @section('description', 'Gestion des publications académiques')
 
-@push('styles')
-<style>
-    /* Style général */
-    .publications-container {
-        max-width: 700px;
-        margin: 0 auto;
-        padding: 20px;
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-    
-    /* En-tête */
-    .page-header {
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #dddfe2;
-    }
-    
-    .page-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #1d2129;
-        margin-bottom: 5px;
-    }
-    
-    /* Alertes */
-    .alert {
-        padding: 12px;
-        border-radius: 6px;
-        margin-bottom: 15px;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .alert-success {
-        background-color: #e7f5e9;
-        color: #2b8a3e;
-        border-left: 4px solid #2b8a3e;
-    }
-    
-    .alert-danger {
-        background-color: #fff3bf;
-        color: #e67700;
-        border-left: 4px solid #e67700;
-    }
-    
-    /* Boutons */
-    .btn {
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 500;
-        font-size: 15px;
-        transition: all 0.2s;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .btn-primary {
-        background-color: #1877f2;
-        color: white;
-        border: none;
-    }
-    
-    .btn-primary:hover {
-        background-color: #166fe5;
-    }
-    
-    /* Cartes de publication - Style Facebook */
-    .publication-card {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        border: 1px solid #dddfe2;
-    }
-    
-    /* Conteneur d'image avec ratio 16:9 comme Facebook */
-    .publication-image-container {
-        position: relative;
-        padding-top: 56.25%; /* 16:9 Aspect Ratio */
-        overflow: hidden;
-        background-color: #f0f2f5;
-    }
-    
-    .publication-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    /* Corps de la publication */
-    .publication-body {
-        padding: 12px 16px;
-    }
-    
-    .publication-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: #1d2129;
-        margin-bottom: 8px;
-    }
-    
-    .publication-description {
-        color: #4b4f56;
-        line-height: 1.4;
-        margin-bottom: 12px;
-        font-size: 15px;
-    }
-    
-    /* Métadonnées */
-    .publication-meta {
-        display: flex;
-        align-items: center;
-        color: #65676b;
-        font-size: 13px;
-        margin-bottom: 12px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    
-    /* Actions */
-    .publication-actions {
-        display: flex;
-        border-top: 1px solid #dddfe2;
-        padding-top: 8px;
-    }
-    
-    .btn-outline {
-        background: none;
-        border: none;
-        color: #65676b;
-        flex: 1;
-        justify-content: center;
-        padding: 8px;
-        border-radius: 4px;
-    }
-    
-    .btn-outline:hover {
-        background-color: #f0f2f5;
-    }
-    
-    /* État vide */
-    .empty-state {
-        text-align: center;
-        padding: 40px 20px;
-        background-color: white;
-        border-radius: 8px;
-        border: 1px solid #dddfe2;
-        color: #65676b;
-    }
-    
-    .empty-state-icon {
-        font-size: 50px;
-        color: #bec3c9;
-        margin-bottom: 15px;
-    }
-    
-    /* Responsive */
-    @media (max-width: 600px) {
-        .publications-container {
-            padding: 15px;
-        }
-        
-        .page-title {
-            font-size: 20px;
-        }
-        
-        .publication-image-container {
-            padding-top: 75%; /* Ratio plus carré sur mobile */
-        }
-    }
-</style>
-@endpush
-
 @section('content')
-<div class="publications-container">
-    <div class="page-header">
-        <h1 class="page-title">Mes Publications</h1>
-    </div>
-    
-    @if(session('success'))
-        <div class="alert alert-success">
-            <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
-        </div>
-    @endif
-    
-    @if(session('error'))
-        <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
-        </div>
-    @endif
-    
-    <div style="margin-bottom: 20px;">
-        <a href="{{ route('professor.publications.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Créer une publication
-        </a>
-    </div>
-    
-    @if($publications->count() > 0)
-        @foreach($publications as $pub)
-        <div class="publication-card">
-            <div class="publication-body">
-                <h3 class="publication-title">{{ $pub->titre_pub }}</h3>
-                
-                @if($pub->image)
-                <div class="publication-image-container">
-                    <img src="{{ asset('storage/' . $pub->image) }}" 
-                         alt="{{ $pub->titre_pub }}" 
-                         class="publication-image"
-                         loading="lazy">
-                </div>
-                @endif
-                
-                <p class="publication-description">{{ $pub->description }}</p>
-                
-                <div class="publication-meta">
-                    <span>
-                        <i class="far fa-calendar-alt mr-1"></i>
-                        {{ date('d/m/Y', strtotime($pub->year)) }}
-                    </span>
-                    
-                    @if($pub->type)
-                    <span>
-                        <i class="fas fa-tag mr-1"></i>
-                        {{ $pub->type }}
-                    </span>
-                    @endif
-                    
-                    @if($pub->doi)
-                    <span>
-                        <i class="fas fa-link mr-1"></i>
-                        <a href="https://doi.org/{{ $pub->doi }}" target="_blank" rel="noopener noreferrer" style="color: #1877f2;">
-                            DOI
-                        </a>
-                    </span>
-                    @endif
-                </div>
-                
-                <div class="publication-actions">
-                    <a href="{{ route('professor.publications.edit', $pub->id) }}" class="btn-outline">
-                        <i class="fas fa-edit mr-1"></i> Modifier
-                    </a>
-                    
-                    <form action="{{ route('professor.publications.destroy', $pub->id) }}" method="POST" style="flex: 1;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-outline" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')">
-                            <i class="fas fa-trash mr-1"></i> Supprimer
-                        </button>
-                    </form>
-                </div>
+<section class="publications-management">
+    <div class="container">
+        <h1 class="section-title">Mes Publications</h1>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
             </div>
-        </div>
-        @endforeach
-    @else
-        <div class="empty-state">
-            <div class="empty-state-icon">
-                <i class="fas fa-book-open"></i>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
             </div>
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Aucune publication disponible</h3>
-            <p style="margin-bottom: 20px;">Commencez par créer votre première publication</p>
+        @endif
+
+        <div class="management-actions">
             <a href="{{ route('professor.publications.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Nouvelle publication
+                <i class="fas fa-plus"></i> Créer une publication
             </a>
         </div>
-    @endif
-</div>
+
+        <div class="publications-list">
+            @if($publications->count() > 0)
+                @foreach($publications as $pub)
+                <div class="publication-card">
+                    <div class="publication-header">
+                        <h3 class="publication-title">{{ $pub->titre_pub }}</h3>
+                        <span class="publication-year">{{ date('d/m/Y', strtotime($pub->year)) }}</span>
+                    </div>
+                    
+                    <div class="publication-content">
+                        @if($pub->image)
+                        <div class="publication-image-container">
+                            <img src="{{ asset('storage/' . $pub->image) }}" 
+                                 alt="{{ $pub->titre_pub }}" 
+                                 class="publication-image"
+                                 loading="lazy">
+                        </div>
+                        @endif
+                        
+                        <p class="publication-description">{{ $pub->description }}</p>
+                        
+                        <div class="publication-meta">
+                            @if($pub->type)
+                            <span class="meta-item">
+                                <i class="fas fa-tag"></i> {{ $pub->type }}
+                            </span>
+                            @endif
+                            
+                            @if($pub->doi)
+                            <span class="meta-item">
+                                <i class="fas fa-link"></i>
+                                <a href="https://doi.org/{{ $pub->doi }}" target="_blank" rel="noopener noreferrer">
+                                    DOI
+                                </a>
+                            </span>
+                            @endif
+                        </div>
+                        
+                        <div class="publication-actions">
+                            <a href="{{ route('professor.publications.edit', $pub->id) }}" class="btn-action btn-edit">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            
+                            <form action="{{ route('professor.publications.destroy', $pub->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-action btn-delete">
+                                    <i class="fas fa-trash-alt"></i> Supprimer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            @else
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Aucune publication disponible</h3>
+                    <p>Commencez par créer votre première publication</p>
+
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
 @endsection
+
+@push('styles')
+<style>
+/* Publications - Styles */
+.publications-management {
+    padding: var(--space-16) 0;
+}
+
+.section-title {
+    font-size: var(--font-size-3xl);
+    text-align: center;
+    margin-bottom: var(--space-10);
+    position: relative;
+    padding-bottom: var(--space-4);
+    color: var(--color-primary);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius-full);
+}
+
+.management-actions {
+    margin-bottom: var(--space-8);
+    text-align: right;
+}
+
+.publications-list {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.publication-card {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.publication-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.publication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.publication-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+}
+
+.publication-year {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+}
+
+.publication-content {
+    padding: var(--space-6);
+}
+
+.publication-description {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+}
+
+.publication-image-container {
+    margin: var(--space-4) 0;
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+    background-color: var(--color-background-alt);
+    border-radius: var(--border-radius);
+}
+
+.publication-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.publication-meta {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+.meta-item a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.meta-item a:hover {
+    text-decoration: underline;
+}
+
+.publication-actions {
+    display: flex;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    transition: var(--transition);
+}
+
+.btn-edit {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--color-primary);
+}
+
+.btn-edit:hover {
+    background-color: rgba(59, 130, 246, 0.2);
+}
+
+.btn-delete {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--color-error);
+}
+
+.btn-delete:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.empty-state i {
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-4);
+}
+
+.empty-state h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+}
+
+.empty-state p {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+}
+
+/* Dark Mode Styles */
+.dark .publication-card {
+    background-color: var(--color-background-dark-theme);
+    border: 1px solid var(--color-border-dark-theme);
+}
+
+.dark .publication-header {
+    background-color: var(--color-primary-dark-theme);
+}
+
+.dark .publication-description {
+    color: var(--color-text-dark-theme);
+}
+
+.dark .publication-image-container {
+    background-color: var(--color-background-alt-dark-theme);
+}
+
+.dark .meta-item {
+    color: var(--color-text-light-dark-theme);
+}
+
+.dark .publication-actions {
+    border-top-color: var(--color-border-dark-theme);
+}
+
+.dark .empty-state {
+    background-color: var(--color-background-dark-theme);
+    border: 1px solid var(--color-border-dark-theme);
+}
+
+.dark .empty-state h3 {
+    color: var(--color-text-dark-theme);
+}
+
+.dark .empty-state p {
+    color: var(--color-text-light-dark-theme);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .publication-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+    
+    .publication-year {
+        align-self: flex-end;
+    }
+    
+    .publication-actions {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        justify-content: center;
+    }
+}
+</style>
+@endpush
