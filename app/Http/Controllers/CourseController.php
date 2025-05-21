@@ -22,7 +22,6 @@ class CourseController extends Controller
             $query->where('type', $request->type);
         }
 
-        // Charger aussi les questions associées à chaque cours
         $courses = $query->with('questions')->get();
 
         $announcements = [
@@ -77,7 +76,7 @@ class CourseController extends Controller
 
         if ($request->hasFile('resources')) {
             $file = $request->file('resources');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('resources', $filename, 'public');
             $data['resources'] = 'resources/' . $filename;
         }
@@ -90,7 +89,8 @@ class CourseController extends Controller
             return redirect()->route('questions.create', $course);
         }
 
-        return redirect()->route('courses.index')->with('success', 'Cours créé avec succès.');
+        // ✅ Redirection vers les cours du professeur connecté
+        return redirect()->route('professor.courses', Auth::id())->with('success', 'Cours créé avec succès.');
     }
 
     public function show(Course $course)
