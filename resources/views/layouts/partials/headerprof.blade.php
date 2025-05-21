@@ -20,7 +20,7 @@
 <li>
     <a href="{{ route('profile.about', ['id' => Auth::user()->id]) }}" class="nav-link">À propos</a>
 </li>
-<li><a href="{{ route('courses.index') }}" class="nav-link">Cour</a></li>         
+<li><a href="{{ route('courses.index') }}" class="nav-link">Cours</a></li>         
            <li><a href="#professors" class="nav-link">Publications</a></li>
                     <li><a href="#contact" class="nav-link">Messages</a></li>
                 </ul>

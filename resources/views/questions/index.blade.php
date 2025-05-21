@@ -6,15 +6,14 @@
 @section('content')
 <section class="questions-list">
     <div class="container">
-<div class="questions-header">
-    <h1 class="page-title">Questions du cours : <span class="course-name">{{ $course->title }}</span></h1>
-    @if(auth()->user()->user_type !== 'student')
-        <a href="{{ route('questions.create', $course) }}" class="btn btn-primary">
-            <i class="fas fa-plus-circle"></i> Ajouter une question
-        </a>
-    @endif
-</div>
-
+        <div class="questions-header">
+            <h1 class="page-title">Questions du cours : <span class="course-name">{{ $course->title }}</span></h1>
+            @if(auth()->user()->user_type !== 'student')
+                <a href="{{ route('questions.create', $course) }}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Ajouter une question
+                </a>
+            @endif
+        </div>
 
         @if(session('success'))
             <div class="alert alert-success">
@@ -29,6 +28,7 @@
                         <th>Question</th>
                         <th class="type-column">Type</th>
                         <th>Options</th>
+                        <th>Réponse correcte</th>
                         <th class="actions-column">Actions</th>
                     </tr>
                 </thead>
@@ -44,33 +44,46 @@
                             <td>
                                 @if($question->type == 'qcm')
                                     <ul class="options-list">
-                                        @foreach(json_decode($question->options, true) ?? [] as $index => $opt)
-                                            <li class="{{ $index === 0 ? 'correct-answer' : '' }}">
-                                                {{ $opt }}
-                                            </li>
+                                        @foreach(json_decode($question->options, true) ?? [] as $opt)
+                                            <li>{{ $opt }}</li>
                                         @endforeach
                                     </ul>
                                 @else
                                     <span class="no-options">-</span>
                                 @endif
                             </td>
-<td>
-    <div class="action-buttons">
-        @if(auth()->user()->user_type !== 'student')
-            <a href="{{ route('questions.edit', $question) }}" class="btn-action btn-edit">
-                <i class="fas fa-edit"></i> Modifier
-            </a>
-            <form action="{{ route('questions.destroy', $question) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-action btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette question ?')">
-                    <i class="fas fa-trash-alt"></i> Supprimer
-                </button>
-            </form>
-        @endif
-    </div>
-</td>
-
+                            <td
+                                @if(auth()->user()->user_type === 'student')
+                                    data-answer-cell
+                                @endif
+                            >
+                                {{-- Professeurs voient la réponse directement --}}
+                                @if(auth()->user()->user_type !== 'student')
+                                    {{ $question->answer ?? '-' }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    @if(auth()->user()->user_type !== 'student')
+                                        <a href="{{ route('questions.edit', $question) }}" class="btn-action btn-edit">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </a>
+                                        <form action="{{ route('questions.destroy', $question) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-action btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette question ?')">
+                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            </button>
+                                        </form>
+                                    @elseif(auth()->user()->user_type === 'student')
+                                        <button type="button" class="btn-action btn-view-answer" data-answer="{{ $question->answer ?? 'Pas de réponse' }}">
+                                            <i class="fas fa-eye"></i> Voir la réponse
+                                        </button>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -376,4 +389,21 @@
     }
 }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.btn-view-answer').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.getAttribute('data-answer');
+                const row = button.closest('tr');
+                const answerCell = row.querySelector('[data-answer-cell]');
+                if(answerCell) {
+                    answerCell.textContent = answer;
+                }
+            });
+        });
+    });
+</script>
 @endpush

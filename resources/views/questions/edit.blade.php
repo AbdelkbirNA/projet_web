@@ -39,6 +39,7 @@
                     <textarea name="question_text" required class="form-control" rows="3">{{ old('question_text', $question->question_text) }}</textarea>
                 </div>
 
+                {{-- Champ des options (QCM) --}}
                 <div id="options_div" class="form-group" style="display:none;">
                     <label class="form-label">Options du QCM :</label>
                     <textarea name="options_text" rows="5" id="options_textarea" class="form-control">@php
@@ -46,6 +47,13 @@
                     @endphp</textarea>
                     <small class="form-note">Séparez chaque option par une nouvelle ligne. La première option sera considérée comme la réponse correcte.</small>
                 </div>
+
+<div id="answer_div" class="form-group">
+    <label class="form-label">Réponse attendue :</label>
+    <input type="text" name="answer" class="form-control" value="{{ old('answer', $question->answer) }}">
+    <small class="form-note">Indiquez la réponse attendue pour cette question ouverte.</small>
+</div>
+
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
@@ -257,29 +265,24 @@ function toggleOptions() {
     const type = document.getElementById('type').value;
     const optionsDiv = document.getElementById('options_div');
     const optionsTextarea = document.getElementById('options_textarea');
-    
+    const answerDiv = document.getElementById('answer_div');
+
     if (type === 'qcm') {
         optionsDiv.style.display = 'block';
         optionsTextarea.setAttribute('required', '');
-    } else {
+        answerDiv.style.display = 'block';
+    } else if (type === 'open') {
         optionsDiv.style.display = 'none';
         optionsTextarea.removeAttribute('required');
+        answerDiv.style.display = 'block';
+    } else {
+        optionsDiv.style.display = 'none';
+        answerDiv.style.display = 'none';
     }
 }
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     toggleOptions();
-    
-    // Set initial required state based on selected type
-    const type = document.getElementById('type').value;
-    const optionsTextarea = document.getElementById('options_textarea');
-    
-    if (type === 'qcm') {
-        optionsTextarea.setAttribute('required', '');
-    } else {
-        optionsTextarea.removeAttribute('required');
-    }
 });
 </script>
 @endpush
