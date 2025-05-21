@@ -17,7 +17,7 @@
 </li>
 <li>
 <a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
-                    <li><a href="#professors" class="nav-link">Publications</a></li>
+<li><a href="{{route('professor.publications.index')}}" class="nav-link">Publications</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
