@@ -75,7 +75,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
         Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     });
-
+Route::middleware(['auth', 'professor'])->group(function () {
+    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+});
     // Profil
     Route::get('/about/{id}', [ProfileController::class, 'showAbout'])->name('profile.about'); // Correction du nom
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');

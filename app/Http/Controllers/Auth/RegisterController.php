@@ -67,7 +67,7 @@ class RegisterController extends Controller
 
         // Connexion automatique de l'utilisateur
         Auth::login($user);
-        if ($user->user_type === 'professor') {
+          if ($user->user_type === 'professor') {
         return redirect()->route('profile.create')
             ->with('success', 'Inscription réussie ! Veuillez compléter votre profil.');
     }
