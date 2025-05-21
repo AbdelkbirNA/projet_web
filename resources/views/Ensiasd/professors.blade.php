@@ -56,8 +56,7 @@
                             <p class="professor-description">
                                 {{ $professor->statut }}
                             </p>
-                            <a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>
-                        </div>
+<a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>                        </div>
                     </div>
                 @empty
                     <div class="alert alert-info text-center w-100">

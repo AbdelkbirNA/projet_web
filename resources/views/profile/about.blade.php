@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.type')
 
 @section('title', 'À propos - ENSIASD')
 @section('description', 'Page à propos du profil professeur ENSIASD')
