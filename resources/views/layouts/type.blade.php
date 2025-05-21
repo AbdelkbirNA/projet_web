@@ -26,10 +26,10 @@
         @if(Auth::user()->user_type === 'professor')
             @include('layouts.partials.headerprof')
         @else
-            @include('layouts.partials.headerprof')
+            @include('layouts.partials.professor-header')
         @endif
     @else
-        @include('layouts.partials.headerprof')
+        @include('layouts.partials.professor-header')
     @endauth
 
     @include('layouts.partials.modals')
