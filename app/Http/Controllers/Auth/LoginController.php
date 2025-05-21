@@ -37,18 +37,21 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // Si une URL de retour est spécifiée, rediriger vers cette URL
-        if ($request->has('redirect_to')) {
-            return redirect($request->input('redirect_to'));
-        }
-        
-        // Sinon, rediriger vers la page précédente si elle existe
-        if ($request->session()->has('url.intended')) {
-            return redirect($request->session()->pull('url.intended'));
-        }
-        
-        // Rediriger vers la page précédente
-        return redirect()->back();
+        if ($user->user_type === 'student') {
+        return redirect()->route('professors');
+    }
+    
+    if ($user->user_type === 'professor') {
+        return redirect()->route('professor.show', ['id' => $user->id]);
+    }
+    
+    // Si une URL de retour est spécifiée
+    if ($request->has('redirect_to')) {
+        return redirect($request->input('redirect_to'));
+    }
+    
+    // Par défaut, redirection vers la page d'accueil
+    return redirect()->route('home');
     }
     
     /**
@@ -58,18 +61,14 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
-    {
-        // Stocker l'URL actuelle avant la déconnexion
-        $previousUrl = url()->previous();
-        
-        $this->guard()->logout();
-        
-        $request->session()->invalidate();
-        
-        $request->session()->regenerateToken();
-        
-        // Rediriger vers la page précédente
-        return redirect($previousUrl);
-    }
-    
+{
+    $this->guard()->logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    // Rediriger vers la page d'accueil après déconnexion
+    return redirect()->route('home');
+}
 }

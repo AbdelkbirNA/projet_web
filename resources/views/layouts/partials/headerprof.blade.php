@@ -11,14 +11,19 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="" class="nav-link">Accueil</a></li>
-                <li>
-    <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
+                    <li>
+    @if(Auth::check() && Auth::user()->user_type === 'professor')
+        <a href="{{ route('professor.show', Auth::user()->id) }}" class="nav-link">Accueil</a>
+    @else
+        <a href="{{ route('home') }}" class="nav-link">Accueil</a>
+    @endif
 </li>
 <li>
-<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
-                    <li><a href="#professors" class="nav-link">Publications</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+    <a href="{{ route('profile.about', ['id' => Auth::user()->id]) }}" class="nav-link">À propos</a>
+</li>
+<li><a href="{{ route('courses.index') }}" class="nav-link">Cour</a></li>         
+           <li><a href="#professors" class="nav-link">Publications</a></li>
+                    <li><a href="#contact" class="nav-link">Boite Message</a></li>
                 </ul>
                 <div class="nav-actions">
                     @guest
@@ -31,7 +36,7 @@
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                             </button>
                             <div id="user-dropdown" class="user-dropdown hidden">
-                @if(Auth::check() && Auth::user()->user_type === 'professor')
+                  @if(Auth::check() && Auth::user()->user_type === 'professor')
     <a href="{{ route('professor.show', Auth::user()->id) }}" class="dropdown-item">
         <i class="fas fa-id-badge"></i> Profil
     </a>

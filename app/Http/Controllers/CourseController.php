@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Profile;
 
 class CourseController extends Controller
 {
@@ -14,7 +15,12 @@ class CourseController extends Controller
     {
         return view('courses.create');
     }
-
+public function professorCourses($id)
+{
+    $courses = \App\Models\Course::where('user_id', $id)->get();
+    $professor = \App\Models\Profile::where('user_id', $id)->first();
+    return view('courses.index', compact('courses', 'professor'));
+}
     // Enregistre un nouveau cours
     public function store(Request $request)
     {

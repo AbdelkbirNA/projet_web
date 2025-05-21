@@ -139,63 +139,49 @@
         </div>
     </section>
 
-    <!-- Professors Section -->
-    <section id="professors" class="professors section">
-        <div class="container">
-            <h2 class="section-title">Nos Professeurs</h2>
-            <p class="section-description">
-                Découvrez notre équipe pédagogique composée d'experts reconnus dans leurs domaines respectifs.
-            </p>
-            <div class="professors-preview">
-                <div class="professors-grid">
-                    <!-- Professor 1 -->
+   <section id="professors" class="professors section">
+    <div class="container">
+        <h2 class="section-title">Nos Professeurs</h2>
+        <p class="section-description">
+            Découvrez notre équipe pédagogique composée d'experts reconnus dans leurs domaines respectifs.
+        </p>
+        <div class="professors-preview">
+            <div class="professors-grid">
+                @forelse($professors as $professor)
                     <div class="professor-card">
                         <div class="professor-image">
-                            <img src="{{ asset('IMG/abdo1.jpg') }}" alt="Dr. Mohammed Amine" class="imageabdo">
+                            @if($professor->photo)
+                                <img src="{{ asset('storage/' . $professor->photo) }}" alt="{{ $professor->prenom }} {{ $professor->nom }}" class="imageabdo">
+                            @else
+                                <img src="{{ asset('IMG/prof1.jpeg') }}" alt="{{ $professor->prenom }} {{ $professor->nom }}" class="imageabdo">
+                            @endif
                         </div>
                         <div class="professor-content">
-                            <h3 class="professor-name">Dr. Mohammed Amine</h3>
-                            <p class="professor-title">Professeur en Intelligence Artificielle</p>
+                            <h3 class="professor-name">{{ $professor->prenom }} {{ $professor->nom }}</h3>
+                            <p class="professor-title">{{ $professor->specialite }}</p>
                             <p class="professor-description">
-                                Spécialiste en apprentissage automatique et réseaux de neurones profonds avec plus de 15 ans d'expérience dans la recherche et l'enseignement.
+                                {{ $professor->statut }}
                             </p>
+                            <a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>
                         </div>
                     </div>
-                    
-                    <!-- Professor 2 -->
-                    <div class="professor-card">
-                        <div class="professor-image">
-                            <img src="{{ asset('IMG/abdo2.jpg') }}" alt="Dr. Fatima Zahra" class="imageabdo">
-                        </div>
-                        <div class="professor-content">
-                            <h3 class="professor-name">Dr. Fatima Zahra</h3>
-                            <p class="professor-title">Professeur en Science des Données</p>
-                            <p class="professor-description">
-                                Experte en analyse statistique et visualisation de données, avec une solide expérience dans l'industrie et plusieurs publications internationales.
-                            </p>
-                        </div>
+                @empty
+                    <div class="alert alert-info text-center w-100">
+                        Aucun professeur n'est disponible pour le moment.
                     </div>
-                    
-                    <!-- Professor 3 -->
-                    <div class="professor-card">
-                        <div class="professor-image">
-                            <img src="{{ asset('IMG/abdo3.jpg') }}" alt="Dr. Youssef" class="imageabdo">
-                        </div>
-                        <div class="professor-content">
-                            <h3 class="professor-name">Dr. Youssef</h3>
-                            <p class="professor-title">Professeur en Cybersécurité</p>
-                            <p class="professor-description">
-                                Spécialiste en sécurité des systèmes d'information et cryptographie, avec une expertise reconnue dans la protection des infrastructures critiques.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-<div class="professors-more">
-    <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
-        <i class="fas fa-users"></i> Voir toute l'équipe
-    </a>
-</div>
+                @endforelse
+            </div>
+            
+            <div class="professors-more">
+                <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
+                    <i class="fas fa-users"></i> Voir toute l'équipe
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
             </div>
         </div>

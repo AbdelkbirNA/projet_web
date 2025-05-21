@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Gestion des Cours</h1>
+<h1>Cours du Professeur {{ isset($professor) ? $professor->prenom . ' ' . $professor->nom : '' }}</h1>
 
 @if(session('success'))
     <div style="color:green;">{{ session('success') }}</div>
 @endif
-
 
 <a href="{{ route('courses.create') }}">Ajouter un cours</a>
 
@@ -27,7 +26,6 @@
     <a href="{{ route('courses.index') }}">Réinitialiser</a>
 </form>
 
-
 <h2>Liste des Cours</h2>
 <table border="1" cellpadding="5">
     <thead>
@@ -37,8 +35,7 @@
             <th>Date du cours</th>
             <th>Ressources</th>
             <th>Actions</th>
-            <th>Questionnaire</th> <!-- Nouvelle colonne -->
-
+            <th>Questionnaire</th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +44,14 @@
                 <td><a href="{{ route('courses.show', $course) }}">{{ $course->title }}</a></td>
                 <td>{{ Str::limit($course->description, 50) }}</td>
                 <td>{{ $course->course_date }}</td>
-
+                <td>
+                    @if($course->resources)
+                        <a href="{{ route('courses.resources.view', $course->resources) }}" target="_blank">Consulter</a> |
+                        <a href="{{ route('courses.resources.download', $course->resources) }}" target="_blank">Télécharger</a>
+                    @else
+                        -
+                    @endif
+                </td>
                 <td>
                     <a href="{{ route('courses.edit', $course) }}">Modifier</a> |
                     <form action="{{ route('courses.destroy', $course) }}" method="POST" style="display:inline" onsubmit="return confirm('Confirmer la suppression ?');">
@@ -57,20 +61,10 @@
                     </form>
                 </td>
                 <td>
-@if($course->resources)
-    <a href="{{ route('courses.resources.view', $course->resources) }}" target="_blank">Consulter</a> |
-    <a href="{{ route('courses.resources.download', $course->resources) }}" target="_blank">Télécharger</a>
-@else
-    -
-@endif
-
-</td>
-                <td>
                     <a href="{{ route('questions.create', $course) }}" class="btn btn-sm btn-primary">
                         Créer un questionnaire
                     </a>
                 </td>
-
             </tr>
         @endforeach
     </tbody>
