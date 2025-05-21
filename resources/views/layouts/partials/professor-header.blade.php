@@ -23,7 +23,7 @@
                 <div class="nav-actions">
                     @guest
                         <button id="signin-button" class="btn btn-outline-primary">
-                            <i class="fas fa-sign-in-alt"></i> Se connecter
+                            <i class="fas fa-sign-in-alt"></i> Se Connecter
                         </button>
                     @else
                         <div class="user-menu">
