@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -62,6 +63,10 @@ Route::middleware(['auth'])->group(function () {
             
         Route::get('/student/professors/{professor}/publications', [StudentController::class, 'showProfessorPublications'])
             ->name('student.professor.publications');
+
+        // Routes pour le contact
+        Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     });
 
 
