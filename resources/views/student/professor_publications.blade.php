@@ -11,11 +11,7 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <div class="management-actions">
-            <a href="{{ route('professors') }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left"></i> Retour à la liste
-            </a>
-        </div>
+
 
         <div class="publications-list">
             @forelse($publications as $publication)
