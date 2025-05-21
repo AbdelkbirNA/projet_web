@@ -23,7 +23,7 @@ Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])
 
 
 use App\Models\Profile;
-
+Route::get('/professor/{user}/publications', [ProfileController::class, 'publications'])->name('professor.publications');
 // Routes d'authentification personnalisées
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);

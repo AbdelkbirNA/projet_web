@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.type')
 
 @section('title', 'ENSIASD - Contact')
 @section('description', 'Contactez les professeurs de l\'ENSIASD')
