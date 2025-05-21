@@ -20,8 +20,10 @@
 <li>
     <a href="{{ route('profile.about', ['id' => Auth::user()->id]) }}" class="nav-link">À propos</a>
 </li>
+
+
 <li><a href="{{ route('professor.courses', ['id' => Auth::user()->id]) }}" class="nav-link">Cours</a></li>         
-           <li><a href="#professors" class="nav-link">Publications</a></li>
+           <li><a href="{{route('professor.publications.index')}}" class="nav-link">Publications</a></li>
 <li><a href="{{ route('inbox') }}" class="nav-link">
     <i class=""></i> Messages
     @if(isset($unreadCount) && $unreadCount > 0)

@@ -11,14 +11,20 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="" class="nav-link">Accueil</a></li>
+                    <li><a href="{{ route('professor.show', ['id' => $profile->user_id])}}" class="nav-link">Accueil</a></li>
                 <li>
     <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
 </li>
 <li>
-<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cours</a></li>     
-                    <li><a href="#professors" class="nav-link">Publications</a></li>
+<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
+<li>    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}" class="nav-link">Publications</a>
+
                     <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+
+                   
+
                 </ul>
                 <div class="nav-actions">
                     @guest

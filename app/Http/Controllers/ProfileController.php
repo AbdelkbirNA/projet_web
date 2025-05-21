@@ -119,15 +119,20 @@ if ($request->has('experiences')) {
         return view('profile.about', compact('profile'));
     }
 
-    public function showProfessor($id)
+  public function showProfessor($id)
 {
-    $profile = Profile::where('user_id', $id)->with(['formations', 'competences', 'experiences'])->first();
-    
+    $profile = Profile::where('user_id', $id)
+        ->with(['formations', 'competences', 'experiences'])
+        ->first();
+
     if (!$profile) {
         return redirect()->back()->with('error', 'Profil non trouvé.');
     }
 
-    return view('professor.show', compact('profile'));
+    // Récupérer les 3 dernières publications liées à ce professeur
+    $lastPublications = $profile->publications()->latest('year')->take(3)->get();
+
+    return view('professor.show', compact('profile', 'lastPublications'));
 }
 
 public function professorCourses($id)

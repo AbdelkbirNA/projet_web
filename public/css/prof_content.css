@@ -497,3 +497,43 @@
   .dark .about-text p {
     color: var(--color-text-light-dark-theme);
   }
+  .publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.publication-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+    padding: 1.5rem 2rem;
+    transition: box-shadow 0.2s;
+    border-left: 4px solid #2962ff;
+}
+
+.publication-item:hover {
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.16);
+    border-left: 4px solid #0039cb;
+}
+
+.publication-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2962ff;
+    margin-bottom: 0.5rem;
+}
+
+.publication-description {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.publication-meta,
+.publication-date {
+    color: #888;
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}

@@ -17,4 +17,8 @@ class Publication extends Model
     {
         return $this->belongsTo(User::class, 'user_id'); // Spécifiez explicitement la clé étrangère
     }
+    protected $casts = [
+        'year' => 'date',
+    ];
+    
 }
