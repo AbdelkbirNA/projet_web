@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AnswerController;
+use App\Models\Profile;
 
 // Routes d'authentification personnalisées
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -22,8 +23,13 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name('professor.show');
 // Page d'accueil
 Route::get('/', function () {
-    return view('Ensiasd.Main');
+    $professors = Profile::whereHas('user', function($query) {
+        $query->where('user_type', 'professor');
+    })->with('user')->latest()->take(3)->get();
+    
+    return view('Ensiasd.Main', compact('professors'));
 })->name('home');
+
 Route::get('/abdo', function () {
     return view('professor.Abdo');
 })->name('home2');
