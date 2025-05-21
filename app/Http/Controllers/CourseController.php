@@ -56,35 +56,39 @@ public function professorCourses($id)
 }
     // Enregistre un nouveau cours
     public function store(Request $request)
-    {
-        if (!Auth::user()->isProfessor()) {
-            abort(403, 'Seuls les professeurs peuvent ajouter un cours.');
-        }
-
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'syllabus' => 'nullable|string',
-            'course_date' => 'nullable|date',
-            'resources' => 'nullable|file|mimes:pdf,doc,docx,zip',
-            'create_quiz' => 'nullable|boolean',
-        ]);
-
-        if ($request->hasFile('resources')) {
-            $file = $request->file('resources');
-            $filename = time().'_'.$file->getClientOriginalName();
-            $file->storeAs('resources', $filename, 'public');
-            $data['resources'] = 'resources/' . $filename;
-        }
-
-        $course = Course::create($data);
-
-        if ($request->has('create_quiz') && $request->input('create_quiz')) {
-            return redirect()->route('questions.create', $course);
-        }
-
-        return redirect()->route('courses.index')->with('success', 'Cours créé avec succès.');
+{
+    if (!Auth::user()->isProfessor()) {
+        abort(403, 'Seuls les professeurs peuvent ajouter un cours.');
     }
+
+    $data = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'syllabus' => 'nullable|string',
+        'course_date' => 'nullable|date',
+        'resources' => 'nullable|file|mimes:pdf,doc,docx,zip',
+        'create_quiz' => 'nullable|boolean',
+    ]);
+
+    if ($request->hasFile('resources')) {
+        $file = $request->file('resources');
+        $filename = time().'_'.$file->getClientOriginalName();
+        $file->storeAs('resources', $filename, 'public');
+        $data['resources'] = 'resources/' . $filename;
+    }
+
+    // ✅ Associer le cours à l'utilisateur connecté
+    $data['user_id'] = Auth::id();
+
+    $course = Course::create($data);
+
+    if ($request->has('create_quiz') && $request->input('create_quiz')) {
+        return redirect()->route('questions.create', $course);
+    }
+
+    return redirect()->route('courses.index')->with('success', 'Cours créé avec succès.');
+}
+
 
     public function show(Course $course)
     {
