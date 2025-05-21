@@ -41,14 +41,22 @@
     @forelse($lastPublications as $publication)
         <div class="publication-item">
             <h3 class="publication-title">{{ $publication->titre_pub }}</h3>
-            <p class="publication-journal">
-                <span class="journal-name">{{ $publication->description ?? 'Nom du journal' }}</span>, {{ $publication->year ? $publication->year->format('Y') : '' }}
-            </p>
-            
+            <p class="journal-name">{{ $publication->description }}</p>
+            <div class="publication-meta">
+                <span class="publication-date">
+                    Publié le : {{ $publication->created_at ? $publication->created_at->format('d/m/Y') : 'Date inconnue' }}
+                </span>
+            </div>
         </div>
     @empty
         <p>Aucune publication récente.</p>
     @endforelse
+</div>
+
+<div style="text-align:center; margin-top: 1rem;">
+    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}"  class="btn btn-small btn-primary">
+        Voir toutes les publications
+    </a>
 </div>
 
     <!-- Courses Section -->
