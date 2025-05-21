@@ -17,13 +17,23 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <div class="collapse navbar-collapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
+                            @if(auth()->user()->isStudent())
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('contact.show') }}">
+                                        <i class="fas fa-envelope"></i> Contact
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -40,5 +50,8 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
