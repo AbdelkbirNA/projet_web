@@ -41,11 +41,11 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
+                                <div class="form-check" style="font-size:1.08rem;">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                    <label class="form-check-label" for="remember" style="color:#2563eb; font-weight:600;">
+                                        {{ __('Se souvenir de moi') }}
                                     </label>
                                 </div>
                             </div>
@@ -53,8 +53,8 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                <button type="submit" class="btn btn-primary" style="background:#2563eb; color:#fff; font-weight:700; border-radius:8px; padding:10px 32px; font-size:1.1rem;">
+                                    {{ __('Connexion') }}
                                 </button>
                             </div>
                         </div>

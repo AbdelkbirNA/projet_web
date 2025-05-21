@@ -24,9 +24,9 @@ class User extends Authenticatable
     ];
 
     public function publications()
-{
-    return $this->hasMany(Publication::class, 'user_id'); // Spécifiez explicitement la clé étrangère
-}
+    {
+        return $this->hasMany(Publication::class, 'user_id'); // Spécifiez explicitement la clé étrangère
+    }
 
     public function isProfessor()
     {
@@ -36,5 +36,20 @@ class User extends Authenticatable
     public function isStudent()
     {
         return strtolower($this->user_type) === 'student';
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function messages()
+    {
+        return $this->receivedMessages();
     }
 }
