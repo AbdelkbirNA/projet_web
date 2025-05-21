@@ -203,13 +203,13 @@
 </style>
 <div class="messagerie-container">
     <div class="messages-list-card">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-right: 24px;">
-            <h2>Messagerie</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-right: 24px; flex-direction: column;">
+            <h2 style="margin-bottom: 0;">Messagerie</h2>
+            <div style="width: 80px; height: 4px; background: #2563eb; border-radius: 2px; margin: 10px auto 0 auto;"></div>
             @if($unreadCount > 0)
                 <span class="badge-unread">{{ $unreadCount }} non lu(s)</span>
             @endif
         </div>
-        <input type="text" class="search-input" placeholder="Rechercher..." wire:model="search">
         <div style="flex:1; overflow-y:auto;">
             @forelse($messages as $message)
                 <div class="message-item @if($selectedMessage && $selectedMessage->id == $message->id) selected @endif @if(!$message->is_read) unread @else read @endif" onclick="window.location='{{ route('inbox') }}?selected={{ $message->id }}'">
