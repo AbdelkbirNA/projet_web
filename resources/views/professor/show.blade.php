@@ -55,7 +55,7 @@
 
 <div style="text-align:center; margin-top: 1rem;">
     <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}"  class="btn btn-small btn-primary">
-        Voir toutes les publications
+        Voir toutes les publications 
     </a>
 </div>
 
