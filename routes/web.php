@@ -14,6 +14,13 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ContactController; // Ajouté
 
+
+Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])
+    ->name('questions.index')
+    ->middleware('auth');
+
+
+
 use App\Models\Profile;
 
 // Routes d'authentification personnalisées

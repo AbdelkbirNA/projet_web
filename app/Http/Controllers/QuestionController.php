@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    // Liste questions d’un cours
+    // Liste des questions d’un cours
     public function index(Course $course)
     {
         $questions = $course->questions()->paginate(10);
@@ -24,12 +24,11 @@ class QuestionController extends Controller
     // Stocker question
     public function store(Request $request, Course $course)
     {
-$data = $request->validate([
-    'type' => 'required|in:qcm,open',
-    'question_text' => 'required|string',
-    'options_text' => 'nullable|required_if:type,qcm|string',
-]);
-
+        $data = $request->validate([
+            'type' => 'required|in:qcm,open',
+            'question_text' => 'required|string',
+            'options_text' => 'sometimes|required_if:type,qcm|string',
+        ]);
 
         if ($data['type'] == 'qcm') {
             $optionsArray = array_filter(array_map('trim', explode("\n", $data['options_text'])));
@@ -53,16 +52,22 @@ $data = $request->validate([
     // Formulaire édition
     public function edit(Question $question)
     {
-        return view('questions.edit', compact('question'));
+        $options_text = null;
+        if ($question->type === 'qcm' && $question->options) {
+            $optionsArray = json_decode($question->options, true);
+            $options_text = implode("\n", $optionsArray);
+        }
+
+        return view('questions.edit', compact('question', 'options_text'));
     }
 
-    // Mettre à jour
+    // Mettre à jour question
     public function update(Request $request, Question $question)
     {
         $data = $request->validate([
             'type' => 'required|in:qcm,open',
             'question_text' => 'required|string',
-            'options_text' => 'required_if:type,qcm|string',
+            'options_text' => 'nullable|required_if:type,qcm|string',
         ]);
 
         if ($data['type'] == 'qcm') {
@@ -91,5 +96,13 @@ $data = $request->validate([
         $question->delete();
 
         return redirect()->route('questions.index', $course)->with('success', 'Question supprimée.');
+    }
+
+    // Afficher les questions pour l'étudiant
+    public function showForStudent(Course $course)
+    {
+        $questions = $course->questions;
+
+        return view('questions.showForStudent', compact('course', 'questions'));
     }
 }
