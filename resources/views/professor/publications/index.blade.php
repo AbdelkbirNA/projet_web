@@ -85,7 +85,9 @@
                     <i class="fas fa-book-open"></i>
                     <h3>Aucune publication disponible</h3>
                     <p>Commencez par créer votre première publication</p>
-
+                    <a href="{{ route('professor.publications.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Nouvelle publication
+                    </a>
                 </div>
             @endif
         </div>
@@ -176,22 +178,25 @@
     margin-bottom: var(--space-4);
 }
 
+/* Modification pour l'image - Taille réduite */
 .publication-image-container {
     margin: var(--space-4) 0;
-    position: relative;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    max-height: 300px; /* Hauteur maximale réduite */
     overflow: hidden;
     background-color: var(--color-background-alt);
     border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .publication-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Conserve les proportions */
+    border-radius: var(--border-radius);
 }
 
 .publication-meta {
@@ -335,6 +340,15 @@
     
     .btn-action {
         justify-content: center;
+    }
+    
+    /* Adaptation de l'image pour mobile */
+    .publication-image-container {
+        max-height: 200px;
+    }
+    
+    .publication-image {
+        max-height: 200px;
     }
 }
 </style>
