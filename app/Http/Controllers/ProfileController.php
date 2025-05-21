@@ -12,10 +12,25 @@ use App\Models\Course;
 class ProfileController extends Controller
 {
     // Affiche le formulaire de création
-    public function create()
-    {
-        return view('profile.create');
+   public function create()
+{
+    // Vérifie si l'utilisateur est un professeur
+    if (auth()->user()->user_type !== 'professor') {
+        return redirect()->route('home');
     }
+
+    // Vérifie si le professeur a déjà un profil
+    $profile = Profile::where('user_id', auth()->id())->first();
+    if ($profile) {
+        return redirect()->route('profile.edit');
+    }
+
+    // Crée un objet profile temporaire pour le header
+    $profile = new \stdClass();
+    $profile->user_id = auth()->id();
+
+    return view('profile.create', compact('profile'));
+}
 
     // Enregistre les données dans la base
     public function store(Request $request)
