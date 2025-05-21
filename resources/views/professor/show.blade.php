@@ -22,7 +22,7 @@
                         <p>{{ $profile->biographie }}</p>
                     @else
                         <p>
-                            Professeur à l'ENSIASD, spécialisé en {{ $profile->specialite ?? 'Informatique' }}.
+                            Professeur à l'ENSIASD , spécialisé en {{ $profile->specialite ?? 'Informatique' }}.
                         </p>
                     @endif
                 </div>
