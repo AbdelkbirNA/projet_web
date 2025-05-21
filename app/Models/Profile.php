@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+    public function courses()
+{
+    return $this->hasMany(\App\Models\Course::class, 'user_id', 'user_id');
+}
 public function publications()
 {
     return $this->hasMany(\App\Models\Publication::class, 'user_id', 'user_id');

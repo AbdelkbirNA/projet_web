@@ -47,17 +47,17 @@ class CourseController extends Controller
     }
 
     public function professorCourses($id)
-    {
-        $courses = Course::where('user_id', $id)->get();
-        $professor = Profile::where('user_id', $id)->first();
+{
+    $profile = \App\Models\Profile::where('user_id', $id)->firstOrFail();
+    $courses = $profile->courses()->get();
 
-        return view('courses.index', [
-            'courses' => $courses,
-            'professor' => $professor,
-            'isProfessor' => Auth::user()->isProfessor(),
-            'isStudent' => Auth::user()->isStudent(),
-        ]);
-    }
+    return view('courses.index', [
+        'courses' => $courses,
+        'profile' => $profile,
+        'isProfessor' => auth()->user()->isProfessor(),
+        'isStudent' => auth()->user()->isStudent(),
+    ]);
+}
 
     public function store(Request $request)
     {

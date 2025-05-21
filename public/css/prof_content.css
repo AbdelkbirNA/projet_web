@@ -537,3 +537,33 @@
     font-size: 0.95rem;
     margin-top: 0.25rem;
 }
+.courses-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.course-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+    padding: 1.2rem 1.5rem;
+}
+
+.course-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.course-description {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.course-meta, .course-date {
+    color: #888;
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}
