@@ -82,6 +82,12 @@ class ProfileController extends Controller
                 $profile->formations()->create($formation);
             }
         }
+if ($request->has('experiences')) {
+        foreach ($request->experiences as $experience) {
+            $profile->experiences()->create($experience);
+        }
+    }
+
 
         // 6. Sauvegarder les compétences
         if ($request->has('competences')) {
@@ -98,10 +104,9 @@ class ProfileController extends Controller
         }
 
         // 8. Rediriger avec message
-        return redirect()->route('home')->with('success', 'Profil créé avec succès !');
-
-        
-    }
+         return redirect()->route('professor.show', ['id' => Auth::id()])
+        ->with('success', 'Votre profil a été créé avec succès !');
+}
 
     public function show()
     {
