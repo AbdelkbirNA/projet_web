@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('questions.store', $course) }}" method="POST">
+            <form action="{{ route('questions.store', $course) }}" method="POST" id="questionForm">
                 @csrf
 
                 <div class="form-group">
@@ -40,6 +40,12 @@
                     <label class="form-label">Options du QCM :</label>
                     <textarea name="options_text" rows="5" id="options_textarea" class="form-control" placeholder="Entrez une option par ligne...">{{ old('options_text') }}</textarea>
                     <small class="form-note">Séparez chaque option par une nouvelle ligne. La première option sera considérée comme la réponse correcte.</small>
+                </div>
+
+                <div id="answer_div" class="form-group" style="display:none;">
+                    <label class="form-label">Réponse correcte :</label>
+                    <input type="text" name="answer" id="correct_answer" class="form-control" placeholder="Entrez la réponse correcte" value="{{ old('answer') }}">
+                    <small class="form-note">Cette réponse doit correspondre exactement à l'une des options listées.</small>
                 </div>
 
                 <div class="form-actions">
@@ -251,29 +257,44 @@ function toggleOptions() {
     const type = document.getElementById('type').value;
     const optionsDiv = document.getElementById('options_div');
     const optionsTextarea = document.getElementById('options_textarea');
-    
+    const answerDiv = document.getElementById('answer_div');
+    const correctAnswerInput = document.getElementById('correct_answer');
+
     if (type === 'qcm') {
         optionsDiv.style.display = 'block';
+        answerDiv.style.display = 'block';
         optionsTextarea.setAttribute('required', '');
+        correctAnswerInput.setAttribute('required', '');
+    } else if (type === 'open') {
+        optionsDiv.style.display = 'none';
+        answerDiv.style.display = 'block';
+        optionsTextarea.removeAttribute('required');
+        correctAnswerInput.setAttribute('required', '');
     } else {
         optionsDiv.style.display = 'none';
+        answerDiv.style.display = 'none';
         optionsTextarea.removeAttribute('required');
+        correctAnswerInput.removeAttribute('required');
     }
 }
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     toggleOptions();
-    
-    // Set initial required state based on selected type
-    const type = document.getElementById('type').value;
-    const optionsTextarea = document.getElementById('options_textarea');
-    
-    if (type === 'qcm') {
-        optionsTextarea.setAttribute('required', '');
-    } else {
-        optionsTextarea.removeAttribute('required');
-    }
+
+    // Validation côté client
+    document.getElementById('questionForm').addEventListener('submit', function (e) {
+        const type = document.getElementById('type').value;
+        const answer = document.getElementById('correct_answer').value.trim();
+        const optionsText = document.getElementById('options_textarea').value.trim();
+
+        if (type === 'qcm') {
+            const options = optionsText.split('\n').map(opt => opt.trim()).filter(Boolean);
+            if (!options.includes(answer)) {
+                e.preventDefault();
+                alert('La réponse correcte doit correspondre exactement à l’une des options listées.');
+            }
+        }
+    });
 });
 </script>
 @endpush

@@ -11,33 +11,31 @@ use App\Models\Profile;
 class CourseController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Course::query();
+    {
+        $query = Course::query();
 
-    if ($request->filled('course_date')) {
-        $query->whereDate('course_date', $request->course_date);
+        if ($request->filled('course_date')) {
+            $query->whereDate('course_date', $request->course_date);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        $courses = $query->with('questions')->get();
+
+        $announcements = [
+            "Nouveau cours de PHP disponible !",
+            "Syllabus mis à jour pour le cours Laravel."
+        ];
+
+        return view('courses.index', [
+            'courses' => $courses,
+            'announcements' => $announcements,
+            'isProfessor' => Auth::user()->isProfessor(),
+            'isStudent' => Auth::user()->isStudent(),
+        ]);
     }
-
-    if ($request->filled('type')) {
-        $query->where('type', $request->type);
-    }
-
-    // Charger aussi les questions associées à chaque cours
-    $courses = $query->with('questions')->get();
-
-    $announcements = [
-        "Nouveau cours de PHP disponible !",
-        "Syllabus mis à jour pour le cours Laravel."
-    ];
-
-    return view('courses.index', [
-        'courses' => $courses,
-        'announcements' => $announcements,
-        'isProfessor' => Auth::user()->isProfessor(),
-        'isStudent' => Auth::user()->isStudent(),
-    ]);
-}
-
 
     public function create()
     {
@@ -48,13 +46,19 @@ class CourseController extends Controller
         return view('courses.create');
     }
 
-public function professorCourses($id)
-{
-    $courses = \App\Models\Course::where('user_id', $id)->get();
-    $professor = \App\Models\Profile::where('user_id', $id)->first();
-    return view('courses.index', compact('courses', 'professor'));
-}
-    // Enregistre un nouveau cours
+    public function professorCourses($id)
+    {
+        $courses = Course::where('user_id', $id)->get();
+        $professor = Profile::where('user_id', $id)->first();
+
+        return view('courses.index', [
+            'courses' => $courses,
+            'professor' => $professor,
+            'isProfessor' => Auth::user()->isProfessor(),
+            'isStudent' => Auth::user()->isStudent(),
+        ]);
+    }
+
     public function store(Request $request)
     {
         if (!Auth::user()->isProfessor()) {
@@ -72,10 +76,12 @@ public function professorCourses($id)
 
         if ($request->hasFile('resources')) {
             $file = $request->file('resources');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('resources', $filename, 'public');
             $data['resources'] = 'resources/' . $filename;
         }
+
+        $data['user_id'] = Auth::id();
 
         $course = Course::create($data);
 
@@ -83,7 +89,8 @@ public function professorCourses($id)
             return redirect()->route('questions.create', $course);
         }
 
-        return redirect()->route('courses.index')->with('success', 'Cours créé avec succès.');
+        // ✅ Redirection vers les cours du professeur connecté
+        return redirect()->route('professor.courses', Auth::id())->with('success', 'Cours créé avec succès.');
     }
 
     public function show(Course $course)
