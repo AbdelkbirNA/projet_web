@@ -1,4 +1,4 @@
-@extends('layouts.type')
+@extends('layouts.master')
 
 @section('title', 'Gestion des Cours')
 
