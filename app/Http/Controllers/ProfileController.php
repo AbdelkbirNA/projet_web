@@ -134,7 +134,13 @@ if ($request->has('experiences')) {
 
     return view('professor.show', compact('profile', 'lastPublications'));
 }
+public function publications($userId)
+{
+    $profile = \App\Models\Profile::where('user_id', $userId)->firstOrFail();
+    $publications = $profile->publications()->latest('year')->get();
 
+    return view('professor.publications.index', compact('profile', 'publications'));
+}
 public function professorCourses($id)
 {
     $courses = Course::where('user_id', $id)->get();
