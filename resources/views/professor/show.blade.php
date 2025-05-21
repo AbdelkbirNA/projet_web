@@ -37,73 +37,19 @@
             <p class="section-description">
                 Une sélection de mes publications récentes dans des revues et conférences internationales.
             </p>
-
-            <div class="publications-filter">
-                <button class="filter-btn active">Toutes</button>
-                <button class="filter-btn">2023</button>
-                <button class="filter-btn">2022</button>
-                <button class="filter-btn">2021</button>
-            </div>
-
-            <div class="publications-list">
-                <!-- Publication 1 -->
-                <div class="publication-item">
-                    <h3 class="publication-title">Explainable AI for Medical Diagnosis: A Novel Approach Using Attention Mechanisms</h3>
-                    <p class="publication-journal">
-                        <span class="journal-name">Journal of Artificial Intelligence in Medicine</span>, 2023
-                    </p>
-                    <p class="publication-authors">Doe J., Smith A., Johnson B.</p>
-                    <div class="publication-links">
-                        <a href="#" class="publication-link">Lire l'article</a>
-                        <a href="#" class="publication-link">Télécharger PDF</a>
-                    </div>
-                </div>
-
-                <!-- Publication 2 -->
-                <div class="publication-item">
-                    <h3 class="publication-title">Multi-Agent Reinforcement Learning for Traffic Optimization in Smart Cities</h3>
-                    <p class="publication-journal">
-                        <span class="journal-name">IEEE Transactions on Intelligent Transportation Systems</span>, 2022
-                    </p>
-                    <p class="publication-authors">Doe J., Williams C., Brown D.</p>
-                    <div class="publication-links">
-                        <a href="#" class="publication-link">Lire l'article</a>
-                        <a href="#" class="publication-link">Télécharger PDF</a>
-                    </div>
-                </div>
-
-                <!-- Publication 3 -->
-                <div class="publication-item">
-                    <h3 class="publication-title">Deep Learning Approaches for Drug Discovery: Challenges and Opportunities</h3>
-                    <p class="publication-journal">
-                        <span class="journal-name">Nature Machine Intelligence</span>, 2022
-                    </p>
-                    <p class="publication-authors">Smith A., Doe J., Garcia E., Wilson F.</p>
-                    <div class="publication-links">
-                        <a href="#" class="publication-link">Lire l'article</a>
-                        <a href="#" class="publication-link">Télécharger PDF</a>
-                    </div>
-                </div>
-
-                <!-- Publication 4 -->
-                <div class="publication-item">
-                    <h3 class="publication-title">Towards Ethical AI: A Framework for Responsible Development and Deployment</h3>
-                    <p class="publication-journal">
-                        <span class="journal-name">ACM Conference on Fairness, Accountability, and Transparency (FAccT)</span>, 2021
-                    </p>
-                    <p class="publication-authors">Doe J., Martinez G.</p>
-                    <div class="publication-links">
-                        <a href="#" class="publication-link">Lire l'article</a>
-                        <a href="#" class="publication-link">Télécharger PDF</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publications-more">
-                <a href="#" class="btn btn-primary">Voir toutes les publications</a>
-            </div>
+<div class="publications-list">
+    @forelse($lastPublications as $publication)
+        <div class="publication-item">
+            <h3 class="publication-title">{{ $publication->titre_pub }}</h3>
+            <p class="publication-journal">
+                <span class="journal-name">{{ $publication->description ?? 'Nom du journal' }}</span>, {{ $publication->year ? $publication->year->format('Y') : '' }}
+            </p>
+            
         </div>
-    </section>
+    @empty
+        <p>Aucune publication récente.</p>
+    @endforelse
+</div>
 
     <!-- Courses Section -->
     <section id="courses" class="courses section">

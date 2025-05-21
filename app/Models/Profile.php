@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-
+public function publications()
+{
+    return $this->hasMany(\App\Models\Publication::class, 'user_id', 'user_id');
+}
     protected $fillable = [
         'user_id',
         'photo',
