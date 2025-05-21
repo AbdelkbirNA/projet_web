@@ -18,14 +18,25 @@ class StudentController extends Controller
         return view('student.main', compact('professors'));
     }
 
+    // public function showProfessorPublications(User $professor)
+    // {
+    //     // Vérification supplémentaire pour s'assurer que c'est bien un professeur
+    //     if (!$professor->isProfessor()) {
+    //         abort(404);
+    //     }
+
+    //     $publications = $professor->publications;
+    //     return view('student.professor_publications', compact('professor', 'publications'));
+    // }
     public function showProfessorPublications(User $professor)
     {
-        // Vérification supplémentaire pour s'assurer que c'est bien un professeur
         if (!$professor->isProfessor()) {
             abort(404);
         }
-
+    
         $publications = $professor->publications;
-        return view('student.professor_publications', compact('professor', 'publications'));
+        $profile = $professor->profile; // Assurez-vous que la relation profile existe
+    
+        return view('student.professor_publications', compact('professor', 'publications', 'profile'));
     }
 }

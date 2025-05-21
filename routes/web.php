@@ -62,8 +62,20 @@ Route::middleware(['auth'])->group(function () {
             return view('professor.publications.acceuil');
         })->name('prof_main');
 
-        Route::get('/professor/publications', [PublicationController::class, 'professorIndex'])
-            ->name('professor.publications.index');
+        Route::prefix('publications')->group(function () {
+            Route::get('/', [PublicationController::class, 'professorIndex'])
+                ->name('professor.publications.index');
+            Route::get('/create', [PublicationController::class, 'create'])
+                ->name('professor.publications.create');
+            Route::post('/', [PublicationController::class, 'store'])
+                ->name('professor.publications.store');
+            Route::get('/{publication}/edit', [PublicationController::class, 'edit'])
+                ->name('professor.publications.edit');
+            Route::put('/{publication}', [PublicationController::class, 'update'])
+                ->name('professor.publications.update');
+            Route::delete('/{publication}', [PublicationController::class, 'destroy'])
+                ->name('professor.publications.destroy'); // Correction: avec 's'
+        });
     });
 
     // Routes pour les étudiants
@@ -75,9 +87,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/student/publications', [PublicationController::class, 'studentIndex'])
             ->name('student.publications.index');
 
+        // Route::get('/student/professors/{professor}/publications', [StudentController::class, 'showProfessorPublications'])
+        //     ->name('student.professor.publications');
         Route::get('/student/professors/{professor}/publications', [StudentController::class, 'showProfessorPublications'])
-            ->name('student.professor.publications');
-
+        //     ->name('student.professor.publications'))
+        ->name('student.professor.publications');
         // Routes pour le contact (Ajouté)
         Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
         Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

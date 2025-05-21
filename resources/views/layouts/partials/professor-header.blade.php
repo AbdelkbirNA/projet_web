@@ -13,12 +13,16 @@
                 <ul class="nav-links">
                     <li><a href="" class="nav-link">Accueil</a></li>
                 <li>
-    <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
+    <a href="{{ isset($profile) ? route('profile.about', ['id' => $profile->user_id]) : '#' }}" class="nav-link">À propos</a>
 </li>
 <li>
-<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
-                    <li><a href="#professors" class="nav-link">Publications</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+<a href="{{ isset($profile) ? route('professor.courses', ['id' => $profile->user_id]) : '#' }}" class="nav-link">Cour</a></li>     
+
+<li>    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}" class="nav-link">Publications</a>
+</li>    
+    
+
+</li>                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
                 <div class="nav-actions">
                     @guest
