@@ -22,7 +22,15 @@
     <div id="toast-container" class="toast-container"></div>
     
     <!-- Header spécifique au portfolio -->
-    @include('layouts.partials.professor-header')
+   @auth
+        @if(Auth::user()->user_type === 'professor')
+            @include('layouts.partials.headerprof')
+        @else
+            @include('layouts.partials.header')
+        @endif
+    @else
+        @include('layouts.partials.header')
+    @endauth
 
     @include('layouts.partials.modals')
 

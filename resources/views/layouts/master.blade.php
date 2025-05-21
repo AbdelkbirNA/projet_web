@@ -60,12 +60,16 @@
 </head>
 <body>
     <!-- Header dynamique selon le type d'utilisateur -->
-    @if(Auth::check() && Auth::user()->user_type === 'professor')
-        @include('layouts.partials.headerprof')
+    @auth
+        @if(Auth::user()->user_type === 'professor')
+            @include('layouts.partials.headerprof')
+        @else
+            @include('layouts.partials.header')
+        @endif
     @else
         @include('layouts.partials.header')
-    @endif
-
+    @endauth
+    
     <!-- Main Content -->
     <main>
         @yield('content')

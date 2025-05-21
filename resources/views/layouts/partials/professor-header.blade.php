@@ -31,11 +31,7 @@
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                             </button>
                             <div id="user-dropdown" class="user-dropdown hidden">
-                @if(Auth::check() && Auth::user()->user_type === 'professor')
-    <a href="{{ route('professor.show', Auth::user()->id) }}" class="dropdown-item">
-        <i class="fas fa-id-badge"></i> Profil
-    </a>
-@endif
+               
                                 <a href="{{ route('logout') }}" 
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
                                    class="dropdown-item">
