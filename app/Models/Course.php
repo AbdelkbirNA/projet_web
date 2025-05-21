@@ -11,7 +11,15 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'syllabus', 'resources', 'course_date'];
+protected $fillable = [
+    'title',
+    'description',
+    'syllabus',
+    'course_date',
+    'resources',
+    'user_id', // 👈 AJOUTEZ CECI
+    'type',    // 👈 à ne pas oublier puisque vous le passez aussi
+];
 
     protected $casts = [
         'course_date' => 'datetime',

@@ -16,6 +16,7 @@
     <a href="{{ isset($profile) ? route('profile.about', ['id' => $profile->user_id]) : '#' }}" class="nav-link">À propos</a>
 </li>
 <li>
+
 <a href="{{ isset($profile) ? route('professor.courses', ['id' => $profile->user_id]) : '#' }}" class="nav-link">Cour</a></li>     
 
 <li>    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}" class="nav-link">Publications</a>
@@ -23,11 +24,16 @@
     
 
 </li>                    <li><a href="#contact" class="nav-link">Contact</a></li>
+
+<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cours</a></li>     
+                    <li><a href="#professors" class="nav-link">Publications</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+
                 </ul>
                 <div class="nav-actions">
                     @guest
                         <button id="signin-button" class="btn btn-outline-primary">
-                            <i class="fas fa-sign-in-alt"></i> Se connecter
+                            <i class="fas fa-sign-in-alt"></i> Se Connecter
                         </button>
                     @else
                         <div class="user-menu">

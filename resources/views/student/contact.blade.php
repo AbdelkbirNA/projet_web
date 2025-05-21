@@ -4,6 +4,67 @@
 @section('description', 'Contactez les professeurs de l\'ENSIASD')
 
 @section('content')
+    <style>
+        body {
+            background: #f4f8ff;
+        }
+        .contact-container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px 0 rgba(60,72,88,.08);
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 32px 32px 24px 32px;
+        }
+        .contact-title {
+            color: #2563eb;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .contact-label {
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .contact-input, .contact-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e0e7ef;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            background: #f4f8ff;
+            outline: none;
+        }
+        .contact-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+            width: 100%;
+        }
+        .contact-btn:hover {
+            background: #174bbd;
+        }
+        .contact-success {
+            background: #e6f9ec;
+            color: #217a3a;
+            border-radius: 8px;
+            padding: 10px 18px;
+            margin-bottom: 18px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+
     <!-- Contact Form Section -->
     <section class="section" style="background: #f8f9fa; padding: 40px 0;">
         <div class="container">

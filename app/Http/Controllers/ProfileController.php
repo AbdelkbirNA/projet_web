@@ -176,11 +176,41 @@ public function showAbout($id)
             'specialite' => 'nullable|string|max:255',
             'reseaux_sociaux' => 'nullable|string|max:255',
             'biographie' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
+
+        // Gérer la photo si présente
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('photos', 'public');
+        }
 
         $profile->update($validated);
 
-        return redirect()->route('profile.about')->with('success', 'Profil mis à jour avec succès.');
+        // --- Mise à jour des formations ---
+        if ($request->has('formations')) {
+            $profile->formations()->delete();
+            foreach ($request->formations as $formation) {
+                $profile->formations()->create($formation);
+            }
+        }
+
+        // --- Mise à jour des expériences ---
+        if ($request->has('experiences')) {
+            $profile->experiences()->delete();
+            foreach ($request->experiences as $experience) {
+                $profile->experiences()->create($experience);
+            }
+        }
+
+        // --- Mise à jour des compétences ---
+        if ($request->has('competences')) {
+            $profile->competences()->delete();
+            foreach ($request->competences as $competence) {
+                $profile->competences()->create($competence);
+            }
+        }
+
+        return redirect()->route('profile.about', ['id' => $profile->user_id])->with('success', 'Profil mis à jour avec succès.');
     }
 
     

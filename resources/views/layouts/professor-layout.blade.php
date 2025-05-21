@@ -37,6 +37,7 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section (Professor Banner) -->
+        @unless(View::getSection('no_hero'))
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -52,6 +53,7 @@
                 </div>
             </div>
         </section>
+        @endunless
 
         <!-- Contenu principal dynamique -->
         @yield('content')

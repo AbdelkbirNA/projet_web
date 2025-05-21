@@ -13,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ContactController; // Ajouté
+use App\Http\Controllers\MessageController;
 
 
 Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])
@@ -55,6 +56,15 @@ Route::get('/professor/{id}', [ProfileController::class, 'showProfessor'])->name
 
 // Groupe de routes protégées
 Route::middleware(['auth'])->group(function () {
+
+    // Routes pour la messagerie
+    Route::middleware(['user.type:professor'])->group(function () {
+        Route::get('/inbox', [MessageController::class, 'index'])->name('inbox');
+        Route::get('/message/{id}', [MessageController::class, 'show'])->name('message.show');
+        Route::post('/message/{id}/reply', [MessageController::class, 'reply'])->name('message.reply');
+        Route::post('/message/{id}/mark', [MessageController::class, 'mark'])->name('message.mark');
+        Route::get('/search-messages', [MessageController::class, 'search'])->name('messages.search');
+    });
 
     // Routes pour les professeurs
     Route::middleware(['user.type:professor'])->group(function () {
@@ -166,3 +176,6 @@ Route::middleware(['auth', 'professor'])->group(function () {
     Route::get('/courses/{course}/forum', [ForumController::class, 'show'])->name('forum.show');
     Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
 });
+
+Route::get('/messages/{id}', [App\Http\Controllers\MessageController::class, 'show'])->name('messages.show');
+Route::delete('/messages/{id}', [App\Http\Controllers\MessageController::class, 'destroy'])->name('messages.destroy');

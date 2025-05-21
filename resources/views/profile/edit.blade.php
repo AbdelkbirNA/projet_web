@@ -217,7 +217,7 @@
                 </div>
             </div>
             <div class="flex justify-end space-x-4">
-                <a href="{{ route('profile.about') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 rounded-md">Annuler</a>
+                <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 rounded-md">Annuler</a>
                 <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md">Enregistrer les modifications</button>
             </div>
         </form>
