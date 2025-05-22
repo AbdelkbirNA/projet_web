@@ -162,7 +162,7 @@
                             <p class="professor-description">
                                 {{ $professor->statut }}
                             </p>
-                            <a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>
+                            <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-small btn-primary">Voir le profil</a>
                         </div>
                     </div>
                 @empty
@@ -180,7 +180,6 @@
         </div>
     </div>
 </section>
-
 
 
             </div>
