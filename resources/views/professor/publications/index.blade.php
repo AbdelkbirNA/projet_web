@@ -85,9 +85,6 @@
                     <i class="fas fa-book-open"></i>
                     <h3>Aucune publication disponible</h3>
                     <p>Commencez par créer votre première publication</p>
-                    <a href="{{ route('professor.publications.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Nouvelle publication
-                    </a>
                 </div>
             @endif
         </div>
