@@ -19,6 +19,11 @@
     </div>
 @endif
 
+@php
+    if (!isset($profile) && isset($professor)) {
+        $profile = $professor;
+    }
+@endphp
 
         <div class="filter-section">
             <form method="GET" action="{{ route('courses.index') }}" class="filter-form">

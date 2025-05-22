@@ -64,75 +64,31 @@
         <div class="container">
             <h2 class="section-title">Cours</h2>
             <div class="courses-grid">
-                <!-- Course 1 -->
-                <div class="course-item">
-                    <div class="course-image">
-                        <img src="{{ asset('IMG/cour1.jpg') }}" alt="Intelligence Artificielle">
-                        <div class="course-level">Master 1</div>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-header">
-                            <h3 class="course-title">Intelligence Artificielle</h3>
-                            <span class="course-code">INFO4302</span>
-                        </div>
-                        <p class="course-semester">Semestre 1</p>
-                        <p class="course-description">
-                            Introduction aux concepts fondamentaux de l'IA, algorithmes de recherche, représentation des connaissances et apprentissage automatique.
-                        </p>
-                        <div class="course-links">
-                            <a href="#" class="btn btn-small btn-primary">Syllabus</a>
-                            <a href="#" class="btn btn-small btn-outline">Ressources</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course 2 -->
-                <div class="course-item">
-                    <div class="course-image">
-                        <img src="{{ asset('IMG/cour2.jpg') }}" alt="Apprentissage Profond">
-                        <div class="course-level">Master 2</div>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-header">
-                            <h3 class="course-title">Apprentissage Profond</h3>
-                            <span class="course-code">INFO5501</span>
-                        </div>
-                        <p class="course-semester">Semestre 1</p>
-                        <p class="course-description">
-                            Réseaux de neurones profonds, CNN, RNN, transformers et applications pratiques avec PyTorch et TensorFlow.
-                        </p>
-                        <div class="course-links">
-                            <a href="#" class="btn btn-small btn-primary">Syllabus</a>
-                            <a href="#" class="btn btn-small btn-outline">Ressources</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course 3 -->
-                <div class="course-item">
-                    <div class="course-image">
-                        <img src="{{ asset('IMG/cour3.jpg') }}" alt="Algorithmique Avancée">
-                        <div class="course-level">Licence 3</div>
-                    </div>
-                    <div class="course-content">
-                        <div class="course-header">
-                            <h3 class="course-title">Algorithmique Avancée</h3>
-                            <span class="course-code">INFO3201</span>
-                        </div>
-                        <p class="course-semester">Semestre 2</p>
-                        <p class="course-description">
-                            Analyse et conception d'algorithmes, complexité, programmation dynamique, algorithmes gloutons et diviser pour régner.
-                        </p>
-                        <div class="course-links">
-                            <a href="#" class="btn btn-small btn-primary">Syllabus</a>
-                            <a href="#" class="btn btn-small btn-outline">Ressources</a>
-                        </div>
-                    </div>
-                </div>
+                <!-- Courses dynamqiue  -->
+        
+<div class="courses-grid">
+    @forelse($lastCourses as $course)
+        <div class="course-item">
+            <h3 class="course-title">{{ $course->title }}</h3>
+            <p class="course-description">{{ $course->description }}</p>
+            @if($course->created_at)
+            <div class="course-meta">
+                <span class="course-date">
+                    Créé le : {{ $course->created_at->format('d/m/Y') }}
+                </span>
             </div>
+            @endif
         </div>
-    </section>
+    @empty
+        <p>Aucun cours disponible.</p>
+    @endforelse
+</div>
+<div style="text-align:center; margin-top: 1rem;">
+    <a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="btn btn-small btn-primary">
+    Voir tous les cours
+</a>
+</div>
 
-    <!-- Contact Section -->
+              
     
 @endsection
