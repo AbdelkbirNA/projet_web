@@ -11,7 +11,15 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
+                    <li>
+    @if(isset($profile) && $profile)
+        <a href="{{ route('professor.show', ['id' => $profile->user_id]) }}" class="nav-link">Accueil</a>
+    @elseif(isset($professor))
+        <a href="{{ route('professor.show', ['id' => $professor->id]) }}" class="nav-link">Accueil</a>
+    @else
+        <a href="#" class="nav-link">Accueil</a>
+    @endif
+</li>
                     
                     <!-- À PROPOS -->
                     <li>

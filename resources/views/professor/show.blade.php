@@ -54,9 +54,19 @@
 </div>
 
 <div style="text-align:center; margin-top: 1rem;">
-    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}"  class="btn btn-small btn-primary">
-        Voir toutes les publications 
+@if(isset($profile) && $profile)
+    <a href="{{ route('student.professor.publications', ['professor' => $profile->user_id]) }}" class="btn btn-small btn-primary">
+        Voir toutes les publications
     </a>
+@elseif(isset($professor))
+    <a href="{{ route('professor.publications', ['user' => $professor->id]) }}" class="btn btn-small btn-primary">
+        Voir toutes les publications
+    </a>
+@else
+    <a href="#" class="btn btn-small btn-primary">
+        Voir toutes les publications
+    </a>
+@endif
 </div>
 
     <!-- Courses Section -->
