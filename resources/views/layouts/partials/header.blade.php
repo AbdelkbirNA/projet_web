@@ -35,7 +35,7 @@
                     <a href="#professors" class="nav-link">Professeurs</a>
                 @endauth
             </li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="{{ route('home') }}#contact" class="nav-link">Contact</a></li>
         </ul>
                 <div class="nav-actions">
                     @guest
@@ -106,7 +106,7 @@
                         <a href="#professors" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Professeurs</a>
                     @endauth
                 </li>
-                <li><a href="#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="{{ route('home') }}#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="#" id="theme-toggle-mobile" class="mobile-nav-link"><i class="fas fa-sun"></i> Changer de thème</a></li>
                 @guest
                     <li><a href="#" id="signin-mobile" class="mobile-nav-link"><i class="fas fa-sign-in-alt"></i> Se connecter</a></li>

@@ -46,7 +46,13 @@
                         @endif
                     </li>
 
-                    <li><a href="{{ route('contact.show') }}" class="nav-link">Contact</a></li>
+                    <li>
+                        @if(isset($profile) && $profile->email)
+                            <a href="{{ route('contact.show', ['email' => $profile->email]) }}" class="nav-link">Contact</a>
+                        @else
+                            <a href="{{ route('contact.show') }}" class="nav-link">Contact</a>
+                        @endif
+                    </li>
                 </ul>
 
                 <div class="nav-actions">
