@@ -3,29 +3,52 @@
     <div class="container">
         <div class="header-content">
             <div class="logo">
-               <a href="{{ route('home') }}">
-        <img src="{{ asset('IMG/logo.png') }}" alt="Logo ENSIASD" class="logo-img">
-    </a>
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('IMG/logo.png') }}" alt="Logo ENSIASD" class="logo-img">
+                </a>
             </div>
             
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="{{ route('professor.show', ['id' => $profile->user_id])}}" class="nav-link">Accueil</a></li>
-                <li>
-    <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
-</li>
-<li>
-<a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cour</a></li>     
-<li>    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}" class="nav-link">Publications</a>
+                    <li><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
+                    
+                    <!-- À PROPOS -->
+                    <li>
+                        @if(isset($profile) && $profile)
+                            <a href="{{ route('profile.about', ['id' => $profile->user_id]) }}" class="nav-link">À propos</a>
+                        @elseif(isset($professor))
+                            <a href="{{ route('profile.about', ['id' => $professor->id]) }}" class="nav-link">À propos</a>
+                        @else
+                            <a href="#" class="nav-link">À propos</a>
+                        @endif
+                    </li>
 
-                    <li><a href="{{route('contact.show')}}" class="nav-link">Contact</a></li>
+                    <!-- COURS -->
+                    <li>
+                        @if(isset($profile) && $profile)
+                            <a href="{{ route('professor.courses', ['id' => $profile->user_id]) }}" class="nav-link">Cours</a>
+                        @elseif(isset($professor))
+                            <a href="{{ route('professor.courses', ['id' => $professor->id]) }}" class="nav-link">Cours</a>
+                        @else
+                            <a href="#" class="nav-link">Cours</a>
+                        @endif
+                    </li>
+
+                    <!-- PUBLICATIONS -->
+                    <li>
+                        @if(isset($profile) && $profile)
+                            <a href="{{ route('student.professor.publications', ['professor' => $profile->user_id]) }}" class="nav-link">Publications</a>
+                        @elseif(isset($professor))
+                            <a href="{{ route('student.professor.publications', ['professor' => $professor->id]) }}" class="nav-link">Publications</a>
+                        @else
+                            <a href="#" class="nav-link">Publications</a>
+                        @endif
+                    </li>
+
+                    <li><a href="{{ route('contact.show') }}" class="nav-link">Contact</a></li>
                 </ul>
 
-
-                   
-
-                </ul>
                 <div class="nav-actions">
                     @guest
                         <button id="signin-button" class="btn btn-outline-primary">
@@ -37,7 +60,6 @@
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                             </button>
                             <div id="user-dropdown" class="user-dropdown hidden">
-               
                                 <a href="{{ route('logout') }}" 
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
                                    class="dropdown-item">
