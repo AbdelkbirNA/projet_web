@@ -90,7 +90,7 @@
             @endif
         </div>
     @empty
-        <p>Aucun cours disponible.</p>
+        <p>Aucun cours disponible. </p>
     @endforelse
 </div>
 <div style="text-align:center; margin-top: 1rem;">
