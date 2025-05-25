@@ -44,3 +44,11 @@ Le fichier exist dans le dossier base de donnees dans le projet
 
 ### 4. Pour lancer le serveur
 php artisan serve
+
+
+
+### Des donnees pour le test (des donnees existe dans la base de donnees): 
+
+--> compte etudiant : email : farah@gmail.com  password: 123zineb
+
+--> compte professeur : email : zineb@gmail.com   password: 123zineb
