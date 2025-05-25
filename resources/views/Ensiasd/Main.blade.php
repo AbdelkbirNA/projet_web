@@ -162,8 +162,8 @@
                             <p class="professor-description">
                                 {{ $professor->statut }}
                             </p>
-                            <a href="{{ route('professor.show', $professor->user_id) }}" class="btn btn-small btn-primary">Voir le profil</a>
-                        </div>
+
+<a href="{{ route('professor.show', $professor->user_id) }}"  id="view-team-button" class="btn btn-small btn-primary">Voir le profil</a>                        </div>
                     </div>
                 @empty
                     <div class="alert alert-info text-center w-100">
@@ -173,14 +173,19 @@
             </div>
             
             <div class="professors-more">
-                <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
-                    <i class="fas fa-users"></i> Voir toute l'équipe
-                </a>
-            </div>
+    @auth
+        <a href="{{ route('professors') }}" id="view-team-button" class="btn btn-outline-primary">
+            <i class="fas fa-users"></i> Voir toute l'équipe
+        </a>
+    @else
+        <button class="btn btn-outline-primary" onclick="openLoginModal()">
+            Voir toute l'équipe
+        </button>
+    @endauth
+</div>
         </div>
     </div>
 </section>
-
 
 
             </div>
@@ -249,6 +254,9 @@
 
 @push('scripts')
 <script>
+    function openLoginModal() {
+    document.getElementById('signin-button').click();
+}
     // Mettre à jour l'année actuelle dans le footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
 </script>

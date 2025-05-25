@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -67,13 +68,14 @@ class RegisterController extends Controller
 
         // Connexion automatique de l'utilisateur
         Auth::login($user);
-          if ($user->user_type === 'professor') {
-        return redirect()->route('profile.create')
-            ->with('success', 'Inscription réussie ! Veuillez compléter votre profil.');
-    }
 
-        // Redirection vers la page d'accueil avec message de succès
-        return redirect()->route('home')
-            ->with('success', 'Inscription réussie ! Bienvenue ' . $user->name);
+        // Redirection différente selon le type d'utilisateur
+        if ($user->user_type === 'professor') {
+            return redirect()->route('profile.create')
+                ->with('success', 'Inscription réussie ! Veuillez compléter votre profil.');
+        } else {
+            return redirect()->route('professors')
+                ->with('success', 'Inscription réussie ! Bienvenue ' . $user->name);
+        }
     }
 }

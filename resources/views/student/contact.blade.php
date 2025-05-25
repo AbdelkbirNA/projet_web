@@ -159,12 +159,25 @@
                     @csrf
                     <div class="mb-4 pb-4" style="border-bottom:1.5px solid #e0e0e0;">
                         <label for="professor_email" class="contact-label">Professeur</label>
-                        <select name="professor_email" id="professor_email" class="form-select contact-input @error('professor_email') is-invalid @enderror" required>
-                            <option value="">Sélectionnez un professeur</option>
-                            @foreach($professors as $professor)
-                                <option value="{{ $professor->email }}">{{ $professor->name }} ({{ $professor->email }})</option>
-                            @endforeach
-                        </select>
+                        @if(isset($selectedEmail))
+                            <input type="email" class="form-control contact-input" value="{{ $selectedEmail }}" readonly>
+                            <input type="hidden" name="professor_email" value="{{ $selectedEmail }}">
+                        @else
+                            <select id="professor_select" class="form-select contact-input @error('professor_email') is-invalid @enderror" required>
+                                <option value="">Sélectionnez un professeur</option>
+                                @foreach($professors as $professor)
+                                    <option data-email="{{ $professor->email }}">{{ $professor->name }}</option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" name="professor_email" id="professor_email" value="" required />
+                            <script>
+                                document.getElementById('professor_select').addEventListener('change', function() {
+                                    var selectedOption = this.options[this.selectedIndex];
+                                    var email = selectedOption.getAttribute('data-email');
+                                    document.getElementById('professor_email').value = email;
+                                });
+                            </script>
+                        @endif
                         @error('professor_email')
                             <div class="invalid-feedback" style="color: #e74c3c;">{{ $message }}</div>
                         @enderror

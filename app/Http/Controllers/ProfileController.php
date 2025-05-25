@@ -82,24 +82,18 @@ class ProfileController extends Controller
                 $profile->formations()->create($formation);
             }
         }
-if ($request->has('experiences')) {
-        foreach ($request->experiences as $experience) {
-            $profile->experiences()->create($experience);
-        }
-    }
 
-
-        // 6. Sauvegarder les compétences
-        if ($request->has('competences')) {
-            foreach ($request->competences as $competence) {
-                $profile->competences()->create($competence);
-            }
-        }
-
-        // 7. Sauvegarder les expériences
+        // 6. Sauvegarder les expériences
         if ($request->has('experiences')) {
             foreach ($request->experiences as $experience) {
                 $profile->experiences()->create($experience);
+            }
+        }
+
+        // 7. Sauvegarder les compétences
+        if ($request->has('competences')) {
+            foreach ($request->competences as $competence) {
+                $profile->competences()->create($competence);
             }
         }
 

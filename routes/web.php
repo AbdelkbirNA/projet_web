@@ -22,6 +22,7 @@ Route::get('/courses/{course}/questions', [QuestionController::class, 'index'])
 
 
 
+    
 Route::get('/professor/{id}/courses', [CourseController::class, 'professorCourses'])->name('professor.courses');
 use App\Models\Profile;
 Route::get('/professor/{user}/publications', [ProfileController::class, 'publications'])->name('professor.publications');

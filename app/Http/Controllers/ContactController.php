@@ -10,10 +10,15 @@ use App\Models\User;
 
 class ContactController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
-        $professors = User::where('user_type', 'professor')->get();
-        return view('student.contact', compact('professors'));
+        $professors = User::where('user_type', 'professor')
+            ->whereNotNull('email')
+            ->where('email', '!=', '')
+            ->get();
+        
+        $selectedEmail = $request->query('email');
+        return view('student.contact', compact('professors', 'selectedEmail'));
     }
 
     public function store(Request $request)

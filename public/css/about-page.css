@@ -1,0 +1,316 @@
+/* Styles pour la page À propos */
+.profile-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 60px 0;
+    min-height: calc(100vh - 300px);
+}
+
+.profile-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 32px;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 6px solid rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    object-fit: cover;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+    border-color: white;
+}
+
+.profile-header h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header p {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.profile-header p:last-of-type {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.profile-info {
+    padding: 40px 30px;
+    line-height: 1.8;
+}
+
+.section-title {
+    color: #1565c0;
+    border-bottom: 3px solid #1e88e5;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #1e88e5;
+    transition: width 0.3s ease;
+}
+
+.profile-card:hover .section-title::after {
+    width: 100px;
+}
+
+.contact-info {
+    display: grid;
+    gap: 15px;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    transition: transform 0.3s ease;
+}
+
+.contact-info p:hover {
+    transform: translateX(10px);
+}
+
+.contact-info i {
+    color: #1e88e5;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 25px;
+    text-align: center;
+}
+
+.experience-item, .formation-item, .competence-item {
+    border-left: 3px solid #1e88e5;
+    padding: 20px;
+    margin-bottom: 25px;
+    background: #f8f9fa;
+    border-radius: 0 10px 10px 0;
+    transition: all 0.3s ease;
+}
+
+.experience-item:hover, .formation-item:hover {
+    transform: translateX(10px);
+    background: #e9ecef;
+}
+
+.competence-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.competence-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.competence-item strong {
+    color: #1565c0;
+    font-size: 1.1rem;
+}
+
+.experience-item h6, .formation-item h6 {
+    font-size: 1.0rem;
+    font-weight: 600;
+    color: #1565c0;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.experience-item h6::before, .formation-item h6::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #1e88e5;
+    border-radius: 50%;
+}
+
+/* Mode sombre */
+body.dark .profile-section {
+    background: linear-gradient(135deg, #181f2a 0%, #232b39 100%);
+}
+
+body.dark .profile-card {
+    background: #232b39;
+    color: #f9fafb;
+}
+
+body.dark .profile-header {
+    background: linear-gradient(135deg, #2563eb, #1a237e);
+}
+
+body.dark .section-title {
+    color: #90caf9;
+    border-bottom-color: #90caf9;
+}
+
+body.dark .section-title::after {
+    background: #90caf9;
+}
+
+body.dark .contact-info i {
+    color: #90caf9;
+}
+
+body.dark .experience-item,
+body.dark .formation-item {
+    background: #1f2937;
+    border-left-color: #90caf9;
+}
+
+body.dark .experience-item:hover,
+body.dark .formation-item:hover {
+    background: #2d3748;
+}
+
+body.dark .competence-item {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+body.dark .competence-item:hover {
+    background: #2d3748;
+}
+
+body.dark .competence-item strong {
+    color: #90caf9;
+}
+
+body.dark .experience-item h6,
+body.dark .formation-item h6 {
+    color: #90caf9;
+}
+
+body.dark .experience-item h6::before,
+body.dark .formation-item h6::before {
+    background-color: #90caf9;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-card {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-section {
+        padding: 30px 0;
+    }
+    
+    .profile-image {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .profile-header h3 {
+        font-size: 1.8rem;
+    }
+    
+    .profile-header p {
+        font-size: 1.1rem;
+    }
+    
+    .profile-header p:last-of-type {
+        font-size: 1.2rem;
+    }
+    
+    .profile-info {
+        padding: 20px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title::after {
+        width: 30px;
+    }
+
+    .profile-card:hover .section-title::after {
+        width: 60px;
+    }
+
+    .experience-item h6, .formation-item h6 {
+        font-size: 1.2rem;
+    }
+} 

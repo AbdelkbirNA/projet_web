@@ -11,7 +11,15 @@
             <!-- Navigation Desktop -->
             <nav class="nav-desktop">
                 <ul class="nav-links">
-                    <li><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
+                    <li>
+    @if(isset($profile) && $profile)
+        <a href="{{ route('professor.show', ['id' => $profile->user_id]) }}" class="nav-link">Accueil</a>
+    @elseif(isset($professor))
+        <a href="{{ route('professor.show', ['id' => $professor->id]) }}" class="nav-link">Accueil</a>
+    @else
+        <a href="#" class="nav-link">Accueil</a>
+    @endif
+</li>
                     
                     <!-- À PROPOS -->
                     <li>
@@ -46,7 +54,13 @@
                         @endif
                     </li>
 
-                    <li><a href="{{ route('contact.show') }}" class="nav-link">Contact</a></li>
+                    <li>
+                        @if(isset($profile) && $profile->email)
+                            <a href="{{ route('contact.show', ['email' => $profile->email]) }}" class="nav-link">Contact</a>
+                        @else
+                            <a href="{{ route('contact.show') }}" class="nav-link">Contact</a>
+                        @endif
+                    </li>
                 </ul>
 
                 <div class="nav-actions">

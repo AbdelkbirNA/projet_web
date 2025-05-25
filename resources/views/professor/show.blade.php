@@ -54,9 +54,15 @@
 </div>
 
 <div style="text-align:center; margin-top: 1rem;">
-    <a href="{{ isset($profile) ? route('student.professor.publications', ['professor' => $profile->user_id]) : '#' }}"  class="btn btn-small btn-primary">
-        Voir toutes les publications 
-    </a>
+    @if(Auth::check() && Auth::user()->user_type === 'professor')
+        <a href="{{route('professor.publications.index')}}" class="btn btn-small btn-primary">
+            Voir toutes les publication
+        </a>
+    @else
+        <a href="{{ route('student.professor.publications', ['professor' => $profile->user_id]) }}" class="btn btn-small btn-primary">
+            Voir toutes les publications
+        </a>
+    @endif
 </div>
 
     <!-- Courses Section -->
@@ -80,7 +86,7 @@
             @endif
         </div>
     @empty
-        <p>Aucun cours disponible.</p>
+        <p>Aucun cours disponible. </p>
     @endforelse
 </div>
 <div style="text-align:center; margin-top: 1rem;">
